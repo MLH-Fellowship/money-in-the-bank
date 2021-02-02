@@ -58,3 +58,53 @@
     left:25px;
     text-align: left;
 }
+.grid-container{
+  display: grid;
+  grid-template-areas:
+    'header header header header header header'
+    'menu main main main main main'
+    'menu footer footer footer footer footer';
+  padding: 10px;
+}
+.grid-container > div{
+  margin-top: 40px 0;
+}
+.item1{ grid-area: menu; }
+.item2{ grid-area: main; }
+.item3{ grid-area: footer; }
+.grid-container2{
+  display: grid;
+  grid-template-areas:
+    'addTransaction makeTransfer total total total total';
+  padding: 10px;
+}
+.item4{ grid-area: addTransaction; }
+.item5{ grid-area: makeTransfer; }
+.item6{ grid-area: total; }
+.unmarkedLink{
+  text-decoration: none;
+  color: black;
+}
+.unmarkedList ul{
+  list-style: none;
+  padding-inline-start: 10px !important;
+}
+.red{
+  color: red;
+}
+.transactionItems , .transaction div{
+  border-top: black solid .5px;
+}
+.border{
+  border: black solid .5px !important;
+}
+.padding{
+  padding: 40px;
+}
+.table td, .table th {
+  padding: .25rem !important;
+  overflow:hidden;
+}
+.paddingTop{
+  padding-top: 40px;
+}
