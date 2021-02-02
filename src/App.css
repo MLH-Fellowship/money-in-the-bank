@@ -1,3 +1,7 @@
+body{
+    margin:0;
+    padding:0;
+}
 .navlink{
     float:right;
     padding: 0 10px;
@@ -8,12 +12,12 @@
 }
 
 .auth-form-container{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin-top: 30px;
-    height:100%;
-    width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-top: 30px;
+  height:100%;
+  width:100%;
 }
 .auth-form-box{
     height:450px;
@@ -107,4 +111,46 @@
 }
 .paddingTop{
   padding-top: 40px;
+}
+
+.budget-header{
+    background:#F2F2F7;
+    margin:0;
+    width:100%;
+    display: grid;
+    /* grid-template-columns: 160px 170px 260px; */
+    grid-template-columns:auto auto;
+    align-content: center;
+}
+.budget-date{
+   padding:10px;
+}
+.budget-header-funds{
+    display: grid;
+    grid-template-columns: 170px auto;
+    padding:0;
+}
+.budget-header-available{
+    text-align: center;
+    background-color: #036346;
+    color:#F2F2F7;
+    border-radius: 5px;
+    padding:0;
+    font-size:20px;
+}
+.budget-header-break-down{
+    display: grid;
+    grid-template-columns: 75px auto;
+    padding:5px;
+    margin:0;
+}
+.align-left{
+    text-align: left;
+    margin:0;
+    padding:2px 5px;
+}
+.align-right{
+    padding:2px 5px;
+    text-align: right;
+    margin:0;
 }

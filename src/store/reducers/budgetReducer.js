@@ -5,6 +5,7 @@ const initState = {
   totalBal: 950
   }
 
+
 const budgetReducer = (state=initState, action) => {
     switch(action.type){
         case 'CREATE_TRANSACTION':
@@ -13,10 +14,10 @@ const budgetReducer = (state=initState, action) => {
         case 'CREATE_PROJECT_ERROR':
           console.log('create project error', action.err)
           return state
-        case 'UPDATE_MESSAGE':
+        case 'GET_BUDGET':
             return {
                 ...state,
-                message: action.message
+                budget: action.budget
             }
         case 'GET_TRANSACTIONS_BY_USER':
             return {
