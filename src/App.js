@@ -1,7 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import './App.css'
-import Dashboard from './components/Dashborad'
 import Navbar from './components/layout/Navbar'
 import SignIn from './components/SignIn'
 import SignUp from './components/SignUp'
@@ -21,10 +20,7 @@ function App({auth}) {
         <Navbar/>
       </header>
       <Switch>
-        <Route exact path='/' component={Dashboard}>
-          {!uid && <Redirect to={"/login"}/>}
-        </Route>
-        <Route exact path='/budget' component={BudgetView}>
+        <Route exact path='/' component={BudgetView}>
           {!uid && <Redirect to={"/login"}/>}
         </Route>
         <Route path='/login' component={SignIn}/>

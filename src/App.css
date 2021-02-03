@@ -154,3 +154,21 @@ body{
     text-align: right;
     margin:0;
 }
+.budget-table{
+    /* margin:10px; */
+    /* background-color: red; */
+}
+.budget-table p {
+    margin:0;
+    text-align: left;
+}
+.budget-table td{
+    padding:8px !important;
+    margin:0 !important;
+}
+.budget-table h2{
+    font-size: 18px;
+    font-weight: bold;
+    padding:5px 10px;
+    margin:0;
+}

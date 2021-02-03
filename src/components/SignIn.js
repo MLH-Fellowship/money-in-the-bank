@@ -5,8 +5,7 @@ import {Redirect, Link} from 'react-router-dom'
 class SignIn extends Component {
     state={
         email:'',
-        password:'',
-        signUp:false
+        password:''
     }
 
     onChange=(e)=>{
@@ -32,7 +31,6 @@ class SignIn extends Component {
     render() {
         const {authError, auth} = this.props
         if(auth.uid) return <Redirect to='/'/>
-        if(this.state.signUp) return <Redirect to='/signup'/>
         
         return (
             <main className="auth-form-container">

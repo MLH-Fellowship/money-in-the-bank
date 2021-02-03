@@ -1,6 +1,12 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, Fragment} from 'react'
 import { connect } from 'react-redux'
 import {getBudget, createBudget} from '../../store/actions/budgetActions'
+import Table from 'react-bootstrap/Table'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck, faPlusCircle  } from '@fortawesome/free-solid-svg-icons'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import BudgetTableBody from './BudgetTableBody'
+
 var dayjs = require('dayjs')
 
 const BudgetView = ({getBudget, budget}) => {
@@ -8,36 +14,52 @@ const BudgetView = ({getBudget, budget}) => {
         getBudget(dayjs().format('MMMYYYY'));
     },[]);
     // is this a problem on a new month?
+    
+    if(!budget){
+        return <p>...</p>
+    }
+
     const {budgeted, categories, funds, previous_overspent, balance}=budget
-    // const [activeBudget, setActiveBudget] = useState()
-
+    
     return (
-        <>
-        <header className='budget-header'>
-            <article className="budget-date">
-                <h1>
-                    {dayjs().format('MMM')}{" "}{dayjs().format('YYYY')}
-                </h1>
-            </article>
-            <section className='budget-header-funds'>
-                <article className='budget-header-available'>
-                    <p style={{}}><b>${balance}</b>
-                    <br/><span style={{fontSize:'16px'}}><i> Available To Budget</i></span></p>
+        <Fragment>
+            <header className='budget-header'>
+                <article className="budget-date">
+                    <h1>
+                        {dayjs().format('MMM')}{" "}{dayjs().format('YYYY')}
+                    </h1>
                 </article>
-                <article className="budget-header-break-down">
-                    <p className="align-right"><b>+${funds}</b></p>
-                    <p className="align-left"><i>Funds for this month</i></p>
-                    <p className="align-right"><b>-${previous_overspent}</b></p>
-                    <p className="align-left"><i>Accumulated overspending</i></p>
-                    <p className="align-right"><b>-${budgeted}</b></p>
-                    <p className="align-left"><i>Budgeted</i></p>
-                </article>
-            </section>
-        </header>
-        <main>
-
-        </main>
-        </>
+                <section className='budget-header-funds'>
+                    <article className='budget-header-available'>
+                        <p style={{}}><b>${balance}</b>
+                        <br/><span style={{fontSize:'16px'}}><i> Available To Budget</i></span></p>
+                    </article>
+                    <article className="budget-header-break-down">
+                        <p className="align-right"><b>+${funds}</b></p>
+                        <p className="align-left"><i>Funds for this month</i></p>
+                        <p className="align-right"><b>-${previous_overspent}</b></p>
+                        <p className="align-left"><i>Accumulated overspending</i></p>
+                        <p className="align-right"><b>-${budgeted}</b></p>
+                        <p className="align-left"><i>Budgeted</i></p>
+                    </article>
+                </section>
+            </header>
+            <main>
+            <Table>
+                <thead>
+                    <tr className="paddingVertical">
+                    <th width="175">Category</th>
+                    <th width="175">Budgeted</th>
+                    <th width="175">Activity</th>
+                    <th width="175">Available</th>
+                    </tr>
+                </thead>
+                {budget && categories && categories.length && (
+                    <BudgetTableBody categories={categories}/>
+                )}
+            </Table>
+            </main>
+        </Fragment>
     )
 }
 
