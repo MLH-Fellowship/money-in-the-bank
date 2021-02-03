@@ -3,9 +3,9 @@ import Table from 'react-bootstrap/Table'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faPlusCircle  } from '@fortawesome/free-solid-svg-icons'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import './App.css';
+import '../../src/App.css';
 
-const MainUserSpecificAccount = () => {
+const MainUserSpecific = () => {
   // Replace with API call
   const accounts = [
     {
@@ -214,4 +214,4 @@ const MainUserSpecificAccount = () => {
     </div>
   );
 }
-export default MainUserSpecificAccount;
+export default MainUserSpecific;
