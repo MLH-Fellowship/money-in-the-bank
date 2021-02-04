@@ -9,8 +9,12 @@ export const createTransaction = (transaction) => {
         //call db
         const firestore = getFirestore();
         firestore.collection('transactions').add({
-            catagory:'new',
-            primaryUser:'user1'
+          ...transaction,
+          primaryUser: 'user1',//TODO: replace with account's main user id
+          user: 'user2',
+          createdAt: new Date()
+          // catagory:'new',
+
         }).then(() => {
             dispatch({type: 'CREATE_TRANSACTION', transaction});
         }).catch((err)=> {
@@ -20,3 +24,11 @@ export const createTransaction = (transaction) => {
     }
 }
 
+export const getAllTransactions = () => {
+}
+
+export const getAccountTransactions = () => {
+}
+
+export const getAllAccounts = () => {
+}

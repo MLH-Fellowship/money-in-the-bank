@@ -5,7 +5,8 @@ import Dashboard from './components/Dashborad'
 import Navbar from './components/layout/Navbar'
 import SignIn from './components/SignIn'
 import SignUp from './components/SignUp'
-import MainUserSpecific from './components/MainUserSpecific'
+import MainUserSpecific from './components/userViews/MainUserSpecific'
+import CreateTransaction from './components/accountComponents/CreateTransaction'
 import { connect } from 'react-redux'
 
 function App({auth}) {
@@ -23,6 +24,7 @@ function App({auth}) {
         <Route path='/login' component={SignIn}/>
         <Route path='/signup' component={SignUp}/>
         <Route path='/mainuserspecific' component={MainUserSpecific}/>
+        <Route path='/createtransaction' component={CreateTransaction}/>
       </Switch>
     </BrowserRouter>
   );

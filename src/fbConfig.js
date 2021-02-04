@@ -14,5 +14,5 @@ var fbConfig = {
   };
   // Initialize Firebase
   firebase.initializeApp(fbConfig);
-
+  firebase.firestore().settings({ timestampsInSnapshots: true})
 export default firebase;
