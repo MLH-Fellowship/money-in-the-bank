@@ -1,50 +1,4 @@
-const budgetTemp = {
-    balance:60,
-    budgeted: 1800,
-    funds:2260,
-    previous_overspent:0,
-    categories:
-    [
-        {
-            Monthly: [
-                {
-                    Rent: {
-                        Budgeted: 1700,
-                        Available: 0,
-                        Activity: -1700
-                    },
-                    
-                    Transportation: {
-                        Activity: -40,
-                        Available: 60,
-                        Budgeted:100
-                    },
-                    'Car Insurance' : {
-                        Activity: -47.99,
-                        Available: 0,
-                        Budgeted:47.99
-                    },
-                }
-            ]
-        },
-        {
-            Weekly: [
-                {
-                    Groceries: {
-                        Budgeted: 100,
-                        Available: 20,
-                        Activity: 80
-                    }
-                }
-            ]
-        }
-    ],
-    Income: {
-        Activity: 4000,
-        Available: 4000,
-        Budgeted:4000
-    }
-}
+import {initialCategories} from '../../initialCategories'
 
 export const createTransaction = (transaction) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
@@ -66,6 +20,7 @@ export const createTransaction = (transaction) => {
     }
 }
 
+<<<<<<< HEAD
 export const createAccount = (account) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
         //call db
@@ -84,23 +39,31 @@ export const createAccount = (account) => {
     }
 }
 
+=======
+>>>>>>> 588e08b... Create, update and delete budget categories
 export const getBudget = (month) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
-        console.log(month)
+        const state = getState();
+        const user = state.firebase.auth.uid
+        console.log('user',user)
         const firestore = getFirestore();
-        firestore.collection('budgets').doc(month).get()
+        let categoryHeaders;
+        firestore.collection('budgets').doc(`${user}-${month}`).get()
         .then(function(doc) {
             if (doc.exists){
-              var budget = doc.data();
-              budget.month=month
-              dispatch({type: 'GET_BUDGET', budget});
+                var budget = doc.data();
+                budget.month=month
+                // console.log(Object.keys(budget.categories))
+                categoryHeaders = Object.keys(budget.categories).sort()
+                dispatch({type: 'GET_BUDGET', budget, categoryHeaders});
             } else {
                 // make a new budget if none exists
-                firestore.collection('budgets').doc(month).set(budgetTemp)
+                firestore.collection('budgets').doc(`${user}-${month}`).set(budgetTemp)
                 .then(function(docRef) {
                     budgetTemp.month=month
+                    categoryHeaders = Object.keys(budgetTemp).sort()
                     console.log("Document written with ID: ", docRef.id);
-                    dispatch({type: 'CREATE_BUDGET', budget: budgetTemp});
+                    dispatch({type: 'CREATE_BUDGET', budget: budgetTemp, categoryHeaders});
                 })
                 .catch(function(error) {
                     console.error("Error adding document: ", error);
@@ -128,9 +91,11 @@ export const createBudget = (month, budget) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
         console.log('cc')
         const firestore = getFirestore();
-        firestore.collection('budgets').doc(month).set(budget)
+        const state = getState();
+        const user = state.firebase.auth.uid
+        budget.month=month
+        firestore.collection('budgets').doc(`${user}-${month}`).set(budget)
         .then(function(docRef) {
-            budget.month=month
             console.log("Document written with ID: ", docRef.id);
             dispatch({type: 'CREATE_BUDGET', budget});
         })
@@ -139,3 +104,110 @@ export const createBudget = (month, budget) => {
         });
     }
 }
+<<<<<<< HEAD
+=======
+
+export const updateCategory = (month, header,idx,available, budgeted, activity, name, budget) => {
+    return (dispatch, getState, { getFirebase, getFirestore }) => {
+        console.log('cc')
+        const firestore = getFirestore();
+        const state = getState();
+        const user = state.firebase.auth.uid
+        console.log('UPDATE from ACTIONS')
+        const updatedCategory = {
+            available,
+            budgeted,
+            activity,
+            name
+        }
+        const cats = budget.categories
+        const catIdx = cats[header].findIndex((c) => c.name === name);
+        cats[header][catIdx]=updatedCategory
+        console.log('cats!!!', cats)
+        firestore.collection('budgets').doc(`${user}-${month}`).update({
+            categories: cats
+        })
+        .then(function(ref) {
+
+            // const state = getState();
+            // const budget = state.budget.budget
+            budget[`categories.${header}${[idx]}`] = updatedCategory
+            console.log("Document updated with ID: ", ref);
+
+            dispatch({type: 'UPDATE_BUDGET', budget});
+        })
+        .catch(function(error) {
+            console.error("Error adding document: ", error);
+        });
+    }
+}
+
+export const createCategory = (month, header, name, budget) => {
+    return (dispatch, getState, { getFirebase, getFirestore }) => {
+        const firestore = getFirestore();
+        const newCategory = {
+            available:0,
+            budgeted:0,
+            activity:0,
+            name
+        }
+   
+        let cats = budget.categories
+        let headerCats = budget.categories[header]
+        headerCats.push(newCategory)
+        headerCats.sort((a, b) => (a.name > b.name ? 1 : -1));
+
+        console.log('cats!!!', headerCats)
+        
+        cats[header] = headerCats
+        // console.log('cats!!!', cats[header], typeof cats[header])
+        // cats[header].sort((a, b) => (a.name > b.name ? 1 : -1))
+        const state = getState();
+        const user = state.firebase.auth.uid
+
+        firestore.collection('budgets').doc(`${user}-${month}`).update({
+            categories: cats
+        })
+        .then(function(ref) {
+            budget.categories=cats
+            dispatch({type: 'CREATE_CATEGORY', budget});
+        })
+        .catch(function(error) {
+            console.error("Error adding document: ", error);
+        });
+    }
+}
+
+export const deleteCategory = (month, header, name, budget) => {
+    return (dispatch, getState, { getFirebase, getFirestore }) => {
+        const firestore = getFirestore();
+        const state = getState();
+        const user = state.firebase.auth.uid
+
+        const cats = budget.categories
+        let headerCats = cats[header].filter((cat)=> {
+            return cat.name !== name
+        })
+        cats[header] = headerCats
+        console.log('del cats!!!', cats)
+        firestore.collection('budgets').doc(`${user}-${month}`).update({
+            categories: cats
+        })
+        .then(function(ref) {
+            budget.categories=cats
+            dispatch({type: 'DELETE_CATEGORY', budget});
+        })
+        .catch(function(error) {
+            console.error("Error deleting document: ", error);
+        });
+    }
+}
+
+const budgetTemp = {
+    balance:60,
+    budgeted: 1800,
+    funds:2260,
+    previous_overspent:0,
+    categories: initialCategories
+}
+>>>>>>> 588e08b... Create, update and delete budget categories

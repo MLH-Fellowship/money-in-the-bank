@@ -1,0 +1,228 @@
+const BasicExpenses = [
+	{
+		name:'Groceries',
+		available:0,
+		budgeted:0,
+		activity:0
+	},
+	{
+		name:'Rent',
+		available:0,
+		budgeted:0,
+		activity:0
+	},
+	{
+		name:'Electric',
+		available:0,
+		budgeted:0,
+		activity:0
+	},
+	{
+		name:'Water',
+		available:0,
+		budgeted:0,
+		activity:0
+	},
+	{
+		name:'Internet',
+		available:0,
+		budgeted:0,
+		activity:0
+	},
+	{
+		name:'Phone',
+		available:0,
+		budgeted:0,
+		activity:0
+	},
+	{
+		name:'Transportation',
+		available:0,
+		budgeted:0,
+		activity:0
+	},
+	{
+		name:'Fuel',
+		available:0,
+		budgeted:0,
+		activity:0
+	},
+	{
+		name:'Household',
+		available:0,
+		budgeted:0,
+		activity:0
+	}
+]
+	
+const Secondary = [
+	{
+		name:'Auto',
+		available:0,
+		budgeted:0,
+		activity:0
+	},
+	{
+		name:'Fuel',
+		available:0,
+		budgeted:0,
+		activity:0
+	},
+	{
+		name:'Insurance',
+		available:0,
+		budgeted:0,
+		activity:0
+	},
+	{
+		name:'Maintenance',
+		available:0,
+		budgeted:0,
+		activity:0
+	},
+	{
+		name:'Health',
+		available:0,
+		budgeted:0,
+		activity:0
+	},
+	{
+		name:'Renter/Home insurance',
+		available:0,
+		budgeted:0,
+		activity:0
+	},
+	{
+		name:'Medical',
+		available:0,
+		budgeted:0,
+		activity:0
+	},
+	{
+		name:'Clothing',
+		available:0,
+		budgeted:0,
+		activity:0
+	},
+	{
+		name:'Gifts',
+		available:0,
+		budgeted:0,
+		activity:0
+	},
+	{
+		name:'Giving',
+		available:0,
+		budgeted:0,
+		activity:0
+	},
+	{
+		name:'Computer',
+		available:0,
+		budgeted:0,
+		activity:0
+	},
+	{
+		name:'Phone',
+		available:0,
+		budgeted:0,
+		activity:0
+	},
+	{
+		name:'Subscriptions',
+		available:0,
+		budgeted:0,
+		activity:0
+	},
+	{
+		name:'Licenses',
+		available:0,
+		budgeted:0,
+		activity:0
+	}
+]
+
+	
+const Debt = [
+	{
+		name:'Student Loan',
+		available:0,
+		budgeted:0,
+		activity:0
+	},
+	{
+		name:'Auto Loan',
+		available:0,
+		budgeted:0,
+		activity:0
+	},
+	{
+		name:'Legal',
+		available:0,
+		budgeted:0,
+		activity:0
+	},
+	{
+		name:'Tax',
+		available:0,
+		budgeted:0,
+		activity:0
+	}
+]
+
+const SavingsGoals = [
+	{
+		name:'Vacation',
+		available:0,
+		budgeted:0,
+		activity:0
+	},
+	{
+		name:'Education',
+		available:0,
+		budgeted:0,
+		activity:0
+	},
+	{
+		name:'NewCar',
+		available:0,
+		budgeted:0,
+		activity:0
+	},
+	{
+		name:'EmergencyFund',
+		available:0,
+		budgeted:0,
+		activity:0
+	}
+]
+
+const Fun = [
+	{
+		name:'Restaurants',
+		available:0,
+		budgeted:0,
+		activity:0
+	},
+	{
+		name:'Concerts',
+		available:0,
+		budgeted:0,
+		activity:0
+	},
+	{
+		name:'Spending Money',
+		available:0,
+		budgeted:0,
+		activity:0
+	}
+]
+
+
+// Credit Card Payments
+
+export const initialCategories = {
+	Basics: BasicExpenses,
+	Secondary,
+	Fun
+}

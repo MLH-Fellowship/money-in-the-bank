@@ -9,7 +9,7 @@ import BudgetTableBody from './BudgetTableBody'
 
 var dayjs = require('dayjs')
 
-const BudgetView = ({getBudget, budget}) => {
+const BudgetView = ({getBudget, budget, categories, categoryHeaders}) => {
     useEffect(() => {
         getBudget(dayjs().format('MMMYYYY'));
     },[]);
@@ -19,8 +19,8 @@ const BudgetView = ({getBudget, budget}) => {
         return <p>...</p>
     }
 
-    const {budgeted, categories, funds, previous_overspent, balance}=budget
-    
+    const {budgeted, funds, previous_overspent, balance, month}=budget
+    const categoryList = Object.keys(categories)
     return (
         <Fragment>
             <header className='budget-header'>
@@ -54,8 +54,8 @@ const BudgetView = ({getBudget, budget}) => {
                     <th width="175">Available</th>
                     </tr>
                 </thead>
-                {budget && categories && categories.length && (
-                    <BudgetTableBody categories={categories}/>
+                {categoryHeaders && categoryHeaders.length > 0 && (
+                    <BudgetTableBody categories={categories} categoryHeaders={categoryHeaders} month={month}/>
                 )}
             </Table>
             </main>
@@ -65,7 +65,9 @@ const BudgetView = ({getBudget, budget}) => {
 
 const mapStateToProps = (state) => {
     return {
-        budget: state.budget.budget
+        budget: state.budget.budget,
+        categories: state.budget.budget.categories,
+        categoryHeaders: state.budget.categoryHeaders
     }
 }
 

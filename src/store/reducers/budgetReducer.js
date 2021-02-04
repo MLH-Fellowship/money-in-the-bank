@@ -17,6 +17,23 @@ const budgetReducer = (state=initState, action) => {
         case 'GET_BUDGET':
             return {
                 ...state,
+                budget: action.budget,
+                categoryHeaders:action.categoryHeaders
+            }
+        case 'CREATE_BUDGET':
+        return {
+            ...state,
+            budget: action.budget,
+            categoryHeaders:action.categoryHeaders
+        }
+        case 'UPDATE_BUDGET':
+            return {
+                ...state,
+                budget: action.budget
+            }
+        case 'CREATE_CATEGORY':
+            return {
+                ...state,
                 budget: action.budget
             }
         case 'GET_TRANSACTIONS_BY_USER':

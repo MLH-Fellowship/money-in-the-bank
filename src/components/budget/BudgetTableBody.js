@@ -1,33 +1,39 @@
-import React, { Fragment }  from 'react'
+import React, { Fragment, useState }  from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck, faPlusCircle, faMinusCircle, faTrash  } from '@fortawesome/free-solid-svg-icons'
+import BudgetCategory from './BudgetCategory'
+import BudgetCategoryHeader from './BudgetCategoryHeader'
+const BudgetTableBody = ({categories, labels, month, categoryHeaders}) => {
+    const [focus, setFocus] = useState("")
+    const [updateValue, setUpdateValue] = useState("")
+    const [showNewCategory, setShowNewCategory] = useState(false)
+    const [createdCategory, setCreatedCategory] = useState()
 
-const BudgetTableBody = ({categories}) => {
-    let name;
+    const toggleShowNewCategory = (e) =>{
+        setShowNewCategory(!showNewCategory)
+    }
     return (
         <tbody className="budget-table">
-        {categories && categories.length && (
-            categories.map((label, idx) =>{
-                const header = Object.keys(label)[0];
-                const values = Object.values(label);
-                return(
-                    <Fragment>
-                        <tr key={header+idx}><td colspan ='4'><h2>{header}</h2></td></tr>
-                        {values && values[0] && (
-                            values[0].map((c, idx) => {
-                                name = Object.keys(c)[0]
-                                return(
-                                    <tr key={name+idx}>
-                                        <td><p style={{paddingLeft:'20px'}}>{name}</p></td>
-                                        <td><p>{c[name].budgeted}</p></td>
-                                        <td><p>{c[name].activity}</p></td>
-                                        <td><p>{c[name].available}</p></td>
-                                    </tr>
-                                )
-                            })
-                        )}
-                    </Fragment>
-                )
-            })
-        )}
+            {categoryHeaders && categoryHeaders.length > 0 && (
+                categoryHeaders.map((header, idx) =>{
+                    let cs = categories[header]
+                    return(
+                        <Fragment key={`header-${header}`}>
+                            <BudgetCategoryHeader key={`header-${header}-${idx}`} header={header} idx={idx} month={month} createdCategory={createdCategory} setCreatedCategory={setCreatedCategory}/>
+                            {createdCategory && createdCategory.header === header && (
+                                <BudgetCategory key={`${header}-${createdCategory.name}-00`} c={createdCategory} idx={0} header={header} month={month} cs={cs} />
+                            )}
+                            { cs && cs.length > 0 && (
+                                cs.map((name, idx) => {
+                                    return(
+                                        <BudgetCategory key={`${header}-${name}-${idx}`} c={categories[header][idx]} idx={idx} header={header} month={month} cs={cs} />
+                                    )
+                                })
+                            )}
+                        </Fragment>
+                    )
+                })
+            )}
       </tbody>
     )
 }
