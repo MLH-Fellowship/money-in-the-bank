@@ -8,7 +8,7 @@ import { firestoreReducer } from 'redux-firestore'
 
 const rootReducer = combineReducers({
     user: userReducer,
-    budgets: budgetReducer,
+    budget: budgetReducer,
     firebase: firebaseReducer,
     firestore: firestoreReducer
 });

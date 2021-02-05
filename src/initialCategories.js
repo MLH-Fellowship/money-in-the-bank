@@ -69,7 +69,7 @@ const Secondary = [
 		activity:0
 	},
 	{
-		name:'Health insurance',
+		name:'Health Insurance',
 		available:0,
 		budgeted:0,
 		activity:0
@@ -212,6 +212,6 @@ export const initialCategories = {
 	Fun,
 	Secondary,
 	Savings,
-	Unique:[]
+	Other:[]
 }
 

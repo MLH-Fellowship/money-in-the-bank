@@ -1,9 +1,7 @@
-import React, {useEffect, useState, Fragment} from 'react'
+import React, {useEffect, Fragment} from 'react'
 import { connect } from 'react-redux'
 import {getBudget, createBudget} from '../../store/actions/budgetActions'
 import Table from 'react-bootstrap/Table'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faPlusCircle  } from '@fortawesome/free-solid-svg-icons'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import BudgetTableBody from './BudgetTableBody'
 import BudgetViewHeader from './BudgetViewHeader'
@@ -12,6 +10,7 @@ var dayjs = require('dayjs')
 
 const BudgetView = ({getBudget, budget, categories, categoryHeaders}) => {
     useEffect(() => {
+        console.log('got')
         getBudget(dayjs().format('MMMYYYY'));
     },[]);
     // is this a problem on a new month?

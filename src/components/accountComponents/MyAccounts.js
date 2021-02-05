@@ -14,7 +14,8 @@ class MyAccounts extends Component {
 
     console.log('myAccounts', myAccounts)
     console.log('props', this.props)
-    const accountItems = myAccounts.map((account) =>
+    const accountItems = myAccounts && myAccounts.length > 0 ? 
+    myAccounts.map((account) =>
       <tr key={account.id}>
         <td>{account.name}:</td>
         {account.working_balance < 0 &&
@@ -24,7 +25,9 @@ class MyAccounts extends Component {
           <td>{account.working_balance}</td>
         }
       </tr>
-    );
+    )
+    :
+    <tr></tr>
 
     return(
       <div className='unmarkedList'>

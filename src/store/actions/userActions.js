@@ -13,7 +13,6 @@ export const signIn = (credentials) => {
             firestore.collection('users').doc(user.uid).get()
             .then(function(doc) {
                 if (doc.exists){
-                    console.log('yay', doc.data())
                     categoryTemplate = doc.data().categoryTemplate;
                     debtTemplate = doc.data().debtTemplate;
                     dispatch({type: 'LOGIN', categoryTemplate, debtTemplate})

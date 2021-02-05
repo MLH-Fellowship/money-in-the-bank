@@ -130,31 +130,34 @@ body{
 }
 .budget-header-funds{
     display: grid;
-    grid-template-columns: 170px auto;
+    grid-template-columns: 220px auto;
     padding:0;
+    margin:0 !important;
 }
 .budget-header-available{
     text-align: center;
     background-color: #036346;
     color:#F2F2F7;
     border-radius: 5px;
-    padding:10px;
     font-size:20px;
     margin:auto;
+    align-content: center;
+    padding:8px;
 }
 .budget-header-break-down{
     display: grid;
-    grid-template-columns: 75px auto;
+    grid-template-columns: 120px auto;
     padding:5px;
-    margin:0;
+    margin:auto 0;
+    font-size: 14px;
 }
 .align-left{
     text-align: left;
     margin:0;
-    padding:2px 5px;
+    padding:2px 8px;
 }
 .align-right{
-    padding:2px 5px;
+    padding:2px 8px;
     text-align: right;
     margin:0;
 }
@@ -164,10 +167,11 @@ body{
     border: 1px solid #b0b3b5;
     font-size: 14px;
 }
+
 .budget-table p {
     font-size: 14px;
     margin: auto;
-    padding:3px;
+    padding:2px 15px;
     text-align: left;
 }
 .budget-table td{

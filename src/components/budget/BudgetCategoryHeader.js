@@ -1,40 +1,28 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faPlusCircle, faMinusCircle, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faPlusCircle, faMinusCircle} from '@fortawesome/free-solid-svg-icons'
 import {connect} from 'react-redux'
 import { createCategory } from '../../store/actions/budgetActions'
-import {getBudget, createBudget} from '../../store/actions/budgetActions'
 
-const BudgetCategoryHeader = ({header, idx, name, budget, month, createCategory, setCreatedCategory}) => {
-    // const [updateValue, setUpdateValue] = useState("")
+const BudgetCategoryHeader = ({header, name, budget, month, createCategory, setCreatedCategory}) => {
     const [newCategory, setNewCategory] = useState("")
-   
-    const [getNewCategory, setGetNewCategory] = useState(false);
     const [showNewCategory, setShowNewCategory] = useState(false)
     const iconClass = showNewCategory ? faMinusCircle : faPlusCircle
-    var dayjs = require('dayjs')
+    // var dayjs = require('dayjs')
 
-    // useEffect(() => {
-    //     console.log('?????')
-    //     getBudget(dayjs().format('MMMYYYY'));
-    // },[getNewCategory]);
-
-    // const labels = Object.keys(categories)
     const onChange = (e) => {
-        setNewCategory(e.target.value)
-        // console.log('focus state:', focus, updateValue)
+        setNewCategory(e.target.value);
     }
-    
+
     const toggleShowNewCategory = (e) =>{
-        setShowNewCategory(!showNewCategory)
+        setShowNewCategory(!showNewCategory);
     }
 
     const createNewCategory = () => {
-        createCategory(month, header, newCategory, budget)
-        setShowNewCategory(false)
-        setNewCategory("")
-        setCreatedCategory({header, name:newCategory, available:0, budgeted:0, activity:0 })
-        console.log('create', newCategory)
+        createCategory(month, header, newCategory, budget);
+        setShowNewCategory(false);
+        setNewCategory("");
+        setCreatedCategory({header, name:newCategory, available:0, budgeted:0, activity:0 });
     }
     return (
         <tr>

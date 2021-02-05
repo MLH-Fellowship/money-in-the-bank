@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faTrash, faPlus  } from '@fortawesome/free-solid-svg-icons'
-import { updateCategory, deleteCategory } from '../../store/actions/budgetActions';
+import { faCheck, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { updateCategory, updateCategoryName, deleteCategory } from '../../store/actions/budgetActions';
 import {connect} from 'react-redux'
 
-const BudgetCategory = ({ idx, header, c, month, updateCategory, deleteCategory, budget}) => {
+const BudgetCategory = ({ idx, header, c, month, updateCategory, updateCategoryName, deleteCategory, budget, goal}) => {
     const [focus, setFocus] = useState(false);
     const [catName, setCatName] = useState(c.name);
     const [catNameBak, setCatNameBak] = useState(c.name);
@@ -12,7 +12,6 @@ const BudgetCategory = ({ idx, header, c, month, updateCategory, deleteCategory,
     const [catAvailable, setCatAvailable] = useState(c.available);
     const [deleted, setDeleted] = useState(false)
 
-    // console.log('c####', c)
     const onChange = (e) => {
         if(e.target.id === header+"."+c.name){
             setCatName(e.target.value);
@@ -36,14 +35,12 @@ const BudgetCategory = ({ idx, header, c, month, updateCategory, deleteCategory,
     }
 
     const onDelete = (e) => {
-        deleteCategory(month, header, c.name, budget)
+        deleteCategory(month, header, c.name, budget, budgeted)
         setDeleted(true)
     }
 
     const onUpdate = (e) => {
-        console.log('UponUpdate', c.name, catName)
-        const available = c.available + budgeted - c.budgeted + c.activity
-        updateCategory(month, header,idx,available, budgeted, c.activity, catName, budget);
+        updateCategoryName(month, header, idx, c.name, catName, budget);
         setFocus(false);
         setCatNameBak(catName);
     }
@@ -54,12 +51,12 @@ const BudgetCategory = ({ idx, header, c, month, updateCategory, deleteCategory,
 
     const onBudgetedBlur = (e) => {
         if(budgeted !== c.budgeted){
-            console.log('bluris', month, header, c.name, 'budgeted', budgeted)
             const available = c.available + budgeted - c.budgeted + c.activity
             setCatAvailable(available);
             setBudgeted(budgeted)
-            // updateCategory(month, header, catName, available, budgeted, c.activity)
-            updateCategory(month, header,idx,available, budgeted, c.activity, catName, budget)
+            console.log('und?', goal)
+            // month, header,idx,available, newBudgeted, oldBudgeted, activity, name, budget, goal
+            updateCategory(month, header,idx,available, budgeted,c.budgeted, c.activity, c.name, budget, goal)
         }
     }
 
@@ -90,14 +87,16 @@ const BudgetCategory = ({ idx, header, c, month, updateCategory, deleteCategory,
 
 const mapStateToProps = (state) => {
     return {
-        budget: state.budget.budget
+        budget: state.budget.budget,
+        goal: state.budget.goal,
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        updateCategory: (month, header,idx,available, budgeted, activity, name, budget) => dispatch(updateCategory(month, header,idx,available, budgeted, activity, name, budget)),
-        deleteCategory: (month, header, name, budget) => dispatch (deleteCategory(month, header, name, budget))
+        updateCategory: (month, header,idx,available, budgeted, oldBudgeted, activity, name, budget, goal) => dispatch(updateCategory(month, header,idx,available, budgeted, oldBudgeted,activity, name, budget, goal)),
+        updateCategoryName: (month, header,idx, oldName, name, budget) => dispatch(updateCategoryName(month, header, idx, oldName, name, budget)),
+        deleteCategory: (month, header, name, budget, catBudgeted) => dispatch (deleteCategory(month, header, name, budget, catBudgeted))
     }
 }
 
