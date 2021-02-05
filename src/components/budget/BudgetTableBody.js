@@ -12,6 +12,7 @@ const BudgetTableBody = ({categories, labels, month, categoryHeaders}) => {
     const toggleShowNewCategory = (e) =>{
         setShowNewCategory(!showNewCategory)
     }
+
     return (
         <tbody className="budget-table">
             {categoryHeaders && categoryHeaders.length > 0 && (

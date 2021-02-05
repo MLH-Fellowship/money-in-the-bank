@@ -1,4 +1,4 @@
-const BasicExpenses = [
+const Basics= [
 	{
 		name:'Groceries',
 		available:0,
@@ -12,13 +12,7 @@ const BasicExpenses = [
 		activity:0
 	},
 	{
-		name:'Electric',
-		available:0,
-		budgeted:0,
-		activity:0
-	},
-	{
-		name:'Water',
+		name:'Utilities',
 		available:0,
 		budgeted:0,
 		activity:0
@@ -42,13 +36,19 @@ const BasicExpenses = [
 		activity:0
 	},
 	{
-		name:'Fuel',
+		name:'Household Goods',
 		available:0,
 		budgeted:0,
 		activity:0
 	},
 	{
-		name:'Household',
+		name:'Medical',
+		available:0,
+		budgeted:0,
+		activity:0
+	},
+	{
+		name:'Child Care',
 		available:0,
 		budgeted:0,
 		activity:0
@@ -57,43 +57,31 @@ const BasicExpenses = [
 	
 const Secondary = [
 	{
-		name:'Auto',
+		name:'Auto Maintenance',
 		available:0,
 		budgeted:0,
 		activity:0
 	},
 	{
-		name:'Fuel',
+		name:'Auto Insurance',
 		available:0,
 		budgeted:0,
 		activity:0
 	},
 	{
-		name:'Insurance',
+		name:'Health insurance',
 		available:0,
 		budgeted:0,
 		activity:0
 	},
 	{
-		name:'Maintenance',
+		name:'Home Insurance',
 		available:0,
 		budgeted:0,
 		activity:0
 	},
 	{
-		name:'Health',
-		available:0,
-		budgeted:0,
-		activity:0
-	},
-	{
-		name:'Renter/Home insurance',
-		available:0,
-		budgeted:0,
-		activity:0
-	},
-	{
-		name:'Medical',
+		name:'Home Maintenance',
 		available:0,
 		budgeted:0,
 		activity:0
@@ -129,13 +117,61 @@ const Secondary = [
 		activity:0
 	},
 	{
+		name:'Education',
+		available:0,
+		budgeted:0,
+		activity:0
+	}
+]
+
+const Savings = [
+	{
+		name:'Vacation',
+		available:0,
+		budgeted:0,
+		activity:0
+	},
+	{
+		name:'Education',
+		available:0,
+		budgeted:0,
+		activity:0
+	},
+	{
+		name:'Large Purchase',
+		available:0,
+		budgeted:0,
+		activity:0
+	},
+	{
+		name:'Emergency Fund',
+		available:0,
+		budgeted:0,
+		activity:0
+	}
+]
+
+const Fun = [
+	{
 		name:'Subscriptions',
 		available:0,
 		budgeted:0,
 		activity:0
 	},
 	{
-		name:'Licenses',
+		name:'Restaurants',
+		available:0,
+		budgeted:0,
+		activity:0
+	},
+	{
+		name:'Concerts',
+		available:0,
+		budgeted:0,
+		activity:0
+	},
+	{
+		name:'Spending Money',
 		available:0,
 		budgeted:0,
 		activity:0
@@ -143,7 +179,7 @@ const Secondary = [
 ]
 
 	
-const Debt = [
+export const initialDebt = [
 	{
 		name:'Student Loan',
 		available:0,
@@ -169,60 +205,13 @@ const Debt = [
 		activity:0
 	}
 ]
-
-const SavingsGoals = [
-	{
-		name:'Vacation',
-		available:0,
-		budgeted:0,
-		activity:0
-	},
-	{
-		name:'Education',
-		available:0,
-		budgeted:0,
-		activity:0
-	},
-	{
-		name:'NewCar',
-		available:0,
-		budgeted:0,
-		activity:0
-	},
-	{
-		name:'EmergencyFund',
-		available:0,
-		budgeted:0,
-		activity:0
-	}
-]
-
-const Fun = [
-	{
-		name:'Restaurants',
-		available:0,
-		budgeted:0,
-		activity:0
-	},
-	{
-		name:'Concerts',
-		available:0,
-		budgeted:0,
-		activity:0
-	},
-	{
-		name:'Spending Money',
-		available:0,
-		budgeted:0,
-		activity:0
-	}
-]
-
-
 // Credit Card Payments
 
 export const initialCategories = {
-	Basics: BasicExpenses,
+	Basics,
+	Fun,
 	Secondary,
-	Fun
+	Savings,
+	Unique:[]
 }
+
