@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
 import { createTransaction } from '../../store/actions/budgetActions'
 
 class CreateTransaction extends Component {
@@ -24,6 +23,7 @@ class CreateTransaction extends Component {
     // console.log(this.state);
     this.props.createTransaction(this.state);
     this.props.history.push('/mainuserspecific');
+    //TODO: Bug - once redirected to mainuserspecific, we lose access to props
   }
   render() {
     console.log('state', this.state)

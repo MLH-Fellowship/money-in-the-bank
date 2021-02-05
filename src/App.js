@@ -7,6 +7,7 @@ import SignIn from './components/SignIn'
 import SignUp from './components/SignUp'
 import MainUserSpecific from './components/userViews/MainUserSpecific'
 import CreateTransaction from './components/accountComponents/CreateTransaction'
+import CreateAccount from './components/accountComponents/CreateAccount'
 import { connect } from 'react-redux'
 
 function App({auth}) {
@@ -25,6 +26,7 @@ function App({auth}) {
         <Route path='/signup' component={SignUp}/>
         <Route path='/mainuserspecific' component={MainUserSpecific}/>
         <Route path='/createtransaction' component={CreateTransaction}/>
+        <Route path='/createaccount' component={CreateAccount}/>
       </Switch>
     </BrowserRouter>
   );

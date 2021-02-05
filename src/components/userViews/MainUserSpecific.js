@@ -8,6 +8,7 @@ import '../../../src/App.css';
 
 class MainUserSpecific extends Component {
   render(){
+    // console.log('props', props)
     let { myAccounts, transactions, cleared, uncleared, totalBal } = this.props;
 
     return (
@@ -31,7 +32,6 @@ class MainUserSpecific extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('state', state)
   return {
     myAccounts: state.budgets.myAccounts,
     transactions: state.budgets.transactions,

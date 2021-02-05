@@ -24,11 +24,32 @@ export const createTransaction = (transaction) => {
     }
 }
 
-export const getAllTransactions = () => {
+export const createAccount = (account) => {
+    return (dispatch, getState, { getFirebase, getFirestore }) => {
+        //call db
+        const firestore = getFirestore();
+        firestore.collection('accounts').add({
+          ...account,
+          cleared_balance: 0,
+          primaryUser: 'user1',//TODO: replace with account's main user id
+          uncleared_balance: 0,
+        }).then(() => {
+            dispatch({type: 'CREATE_ACCOUNT', account});
+        }).catch((err)=> {
+            console.log('ERROR: ', err)
+            dispatch({type:'CREATE_ACCOUNT_ERROR', err})
+        })
+    }
 }
 
-export const getAccountTransactions = () => {
+export const editTransaction = () => {
 }
 
-export const getAllAccounts = () => {
+export const deleteTransaction = () => {
+}
+
+export const editAccount = () => {
+}
+
+export const deleteAccount = () => {
 }
