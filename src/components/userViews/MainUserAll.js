@@ -13,19 +13,16 @@ class MainUserSpecific extends Component {
     console.log('props', this.props)
     let { myAccounts, transactions} = this.props;
 
-    let filteredTransactions = transactions.filter(transaction => transaction.account === 'Target Credit Card');
-    console.log(filteredTransactions);
-
     return (
       <div className="App grid-container paddingTop">
         <div className="item1">
           <MyAccounts myAccounts={myAccounts}/>
         </div>
         <div className="item2">
-          <TransactionsTable transactions={filteredTransactions} view='specific'/>
+          <TransactionsTable transactions={transactions} view='all'/>
         </div>
         <div className="item3">
-          <TransactionsSummary transactions={filteredTransactions}/>
+          <TransactionsSummary transactions={transactions}/>
         </div>
       </div>
     );

@@ -20,6 +20,13 @@ class Dashborad extends Component {
             }}>
             <button >Main User Specific Account</button>
           </Link>
+          <Link
+            to={{
+              pathname: "/mainuserall",
+              props: { transactions: transactions }
+            }}>
+            <button >Main User All Accounts</button>
+          </Link>
         </div>
       )
   }

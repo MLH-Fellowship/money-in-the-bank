@@ -6,6 +6,7 @@ import Navbar from './components/layout/Navbar'
 import SignIn from './components/SignIn'
 import SignUp from './components/SignUp'
 import MainUserSpecific from './components/userViews/MainUserSpecific'
+import MainUserAll from './components/userViews/MainUserAll'
 import CreateTransaction from './components/accountComponents/CreateTransaction'
 import CreateAccount from './components/accountComponents/CreateAccount'
 import { connect } from 'react-redux'
@@ -25,6 +26,7 @@ function App({auth}) {
         <Route path='/login' component={SignIn}/>
         <Route path='/signup' component={SignUp}/>
         <Route path='/mainuserspecific' component={MainUserSpecific}/>
+        <Route path='/mainuserall' component={MainUserAll}/>
         <Route path='/createtransaction' component={CreateTransaction}/>
         <Route path='/createaccount' component={CreateAccount}/>
       </Switch>

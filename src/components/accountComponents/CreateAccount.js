@@ -41,7 +41,7 @@ class CreateAccount extends Component {
             <label htmlFor="secondaryUsers">Secondary User</label>
           </div>
           <div className="input-field">
-            <button className="btn pink lighten-1">Create Account</button>
+            <button className="btn">Create Account</button>
           </div>
         </form>
       </div>

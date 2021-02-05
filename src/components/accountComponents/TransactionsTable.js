@@ -7,12 +7,14 @@ import '../../../src/App.css';
 import { compose } from 'redux'
 import { firestoreConnect } from 'react-redux-firebase'
 
-class SpecificTransactionsTable extends Component {
+class TransactionsTable extends Component {
   render(){
-    let { transactions } = this.props;
-    console.log('transactions', transactions)
+    let { transactions, view } = this.props;
     const transactionItems = transactions.map((transaction) =>
       <tr className="paddingVertical transactionItems" key={transaction.id}>
+        {view === 'all' &&
+          <td width="175">{transaction.account}</td>
+        }
         <td width="175">{transaction.date}</td>
         <td width="175">{transaction.payee}</td>
         <td width="175">{transaction.category}</td>
@@ -24,13 +26,15 @@ class SpecificTransactionsTable extends Component {
         }
       </tr>
     );
-    // debugger;
 
     return(
       <div className="border paddingTop">
         <Table>
           <thead>
             <tr className="paddingVertical">
+              {view === 'all' &&
+                <th width="175">Account</th>
+              }
               <th width="175">Date</th>
               <th width="175">Payee</th>
               <th width="175">Category</th>
@@ -52,7 +56,7 @@ class SpecificTransactionsTable extends Component {
 const mapStateToProps = (state) => {
   console.log('state', state)
   return {
-    transactions: state.firestore.ordered.transactions,
+    // transactions: state.firestore.ordered.transactions,
   }
 }
 export default compose(
@@ -60,4 +64,4 @@ export default compose(
   firestoreConnect([
     { collection: 'transactions' }
   ])
-)(SpecificTransactionsTable)
+)(TransactionsTable)

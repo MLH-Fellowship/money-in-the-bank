@@ -4,10 +4,14 @@ import { connect } from 'react-redux'
 import '../../../src/App.css';
 import { compose } from 'redux'
 import { firestoreConnect } from 'react-redux-firebase'
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 
 class MyAccounts extends Component {
   render() {
     let { myAccounts } = this.props;
+
     console.log('myAccounts', myAccounts)
     console.log('props', this.props)
     const accountItems = myAccounts.map((account) =>
@@ -47,6 +51,17 @@ class MyAccounts extends Component {
             {accountItems}
           </tbody>
         </Table>
+        <div className="addNewAccount">
+          <Link
+            to={{
+              pathname: "/createaccount",
+              // props: { transactions: transactions }
+            }}>
+            <button >
+              <FontAwesomeIcon icon={faPlusCircle} /> Add Account
+            </button>
+          </Link>
+        </div>
       </div>
     )
   }

@@ -73,7 +73,7 @@ class CreateTransaction extends Component {
             <label htmlFor="clear">Clear</label>
           </div>
           <div className="input-field">
-            <button className="btn pink lighten-1">Create Transaction</button>
+            <button className="btn">Create Transaction</button>
           </div>
         </form>
       </div>
