@@ -1,5 +1,7 @@
 const initState={
-    authError: null
+    authError: null,
+    categoryTemplate:{},
+    debtTemplate:[]
 }
 
 const userReducer = (state=initState, action) => {
@@ -8,7 +10,9 @@ const userReducer = (state=initState, action) => {
             console.log('LOGIN success!')
             return {
                 ...state,
-                authError: null
+                authError: null,
+                categoryTemplate: action.categoryTemplate,
+                debtTemplate: action.debtTemplate
             }
         case 'LOGOUT':
         console.log('LOGIN success!')

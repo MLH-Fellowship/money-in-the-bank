@@ -1,7 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import './App.css'
-import Dashboard from './components/Dashborad'
 import Navbar from './components/layout/Navbar'
 import SignIn from './components/SignIn'
 import SignUp from './components/SignUp'
@@ -9,6 +8,7 @@ import MainUserSpecific from './components/userViews/MainUserSpecific'
 import MainUserAll from './components/userViews/MainUserAll'
 import CreateTransaction from './components/accountComponents/CreateTransaction'
 import CreateAccount from './components/accountComponents/CreateAccount'
+import BudgetView from './components/budget/BudgetView'
 import { connect } from 'react-redux'
 
 function App({auth}) {
@@ -20,7 +20,7 @@ function App({auth}) {
         <Navbar/>
       </header>
       <Switch>
-        <Route exact path='/' component={Dashboard}>
+        <Route exact path='/' component={BudgetView}>
           {!uid && <Redirect to={"/login"}/>}
         </Route>
         <Route path='/login' component={SignIn}/>
@@ -34,7 +34,6 @@ function App({auth}) {
   );
 }
 const mapStateToProps = (state) => {
-  console.log(state)
   return {
     auth: state.firebase.auth
   }

@@ -10,7 +10,8 @@ import { firestoreConnect } from 'react-redux-firebase'
 class TransactionsTable extends Component {
   render(){
     let { transactions, view } = this.props;
-    const transactionItems = transactions.map((transaction) =>
+    const transactionItems = transactions && transactions.length > 0 ? 
+    transactions.map((transaction) =>
       <tr className="paddingVertical transactionItems" key={transaction.id}>
         {view === 'all' &&
           <td width="175">{transaction.account}</td>
@@ -25,7 +26,9 @@ class TransactionsTable extends Component {
           <td width="175"><FontAwesomeIcon icon={faCheck} /></td>
         }
       </tr>
-    );
+    )
+    :
+    <tr></tr>
 
     return(
       <div className="border paddingTop">

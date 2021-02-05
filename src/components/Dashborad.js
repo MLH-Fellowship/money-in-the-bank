@@ -1,8 +1,12 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
+<<<<<<< HEAD
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
 import { Link } from "react-router-dom";
+=======
+import { createTransaction} from '../store/actions/budgetActions'
+>>>>>>> 2a31d64... start budget view
 
 class Dashborad extends Component {
   render(){

@@ -10,23 +10,26 @@ const TransactionsSummary = (transactions) => {
   let uncleared_balance = 0
   console.log('transactions', transactions)
   
-  for(let i = 0; i < transactions.length; i++){
-    if(transactions[i].clear){
-      if(transactions[i].inflow){
-        cleared_balance += parseInt(transactions[i].inflow)
-      }
-      if(transactions[i].outflow){
-        cleared_balance -= parseInt(transactions[i].outflow)
-      }
-    }else if(!transactions[i].clear){
-      if(transactions[i].inflow){
-        uncleared_balance += parseInt(transactions[i].inflow)
-      }
-      if(transactions[i].outflow){
-        uncleared_balance -= parseInt(transactions[i].outflow)
+  if(transactions){
+    for(let i = 0; i < transactions.length; i++){
+      if(transactions[i].clear){
+        if(transactions[i].inflow){
+          cleared_balance += parseInt(transactions[i].inflow)
+        }
+        if(transactions[i].outflow){
+          cleared_balance -= parseInt(transactions[i].outflow)
+        }
+      }else if(!transactions[i].clear){
+        if(transactions[i].inflow){
+          uncleared_balance += parseInt(transactions[i].inflow)
+        }
+        if(transactions[i].outflow){
+          uncleared_balance -= parseInt(transactions[i].outflow)
+        }
       }
     }
   }
+  
   console.log('cleared', cleared_balance)
   console.log('uncleared', uncleared_balance)
   let totalBal = cleared_balance + uncleared_balance

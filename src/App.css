@@ -1,3 +1,7 @@
+body{
+    margin:0;
+    padding:0;
+}
 .navlink{
     float:right;
     padding: 0 10px;
@@ -8,12 +12,12 @@
 }
 
 .auth-form-container{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin-top: 30px;
-    height:100%;
-    width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-top: 30px;
+  height:100%;
+  width:100%;
 }
 .auth-form-box{
     height:450px;
@@ -107,4 +111,81 @@
 }
 .paddingTop{
   padding-top: 40px;
+}
+
+.budget-header{
+    background:#F2F2F7;
+    margin:0;
+    width:100%;
+    display: grid;
+    /* grid-template-columns: 160px 170px 260px; */
+    grid-template-columns:auto auto;
+    align-content: center;
+}
+.budget-date{
+    margin:auto 20px;
+}
+.budget-date h1{
+    font-size: 24px;
+}
+.budget-header-funds{
+    display: grid;
+    grid-template-columns: 220px auto;
+    padding:0;
+    margin:0 !important;
+}
+.budget-header-available{
+    text-align: center;
+    background-color: #036346;
+    color:#F2F2F7;
+    border-radius: 5px;
+    font-size:20px;
+    margin:auto;
+    align-content: center;
+    padding:8px;
+}
+.budget-header-break-down{
+    display: grid;
+    grid-template-columns: 120px auto;
+    padding:5px;
+    margin:auto 0;
+    font-size: 14px;
+}
+.align-left{
+    text-align: left;
+    margin:0;
+    padding:2px 8px;
+}
+.align-right{
+    padding:2px 8px;
+    text-align: right;
+    margin:0;
+}
+.budget-table input{
+    padding: 0 5px;
+    margin: 0;
+    border: 1px solid #b0b3b5;
+    font-size: 14px;
+}
+
+.budget-table p {
+    font-size: 14px;
+    margin: auto;
+    padding:2px 15px;
+    text-align: left;
+}
+.budget-table td{
+    padding:0 !important;
+    margin:0 !important;
+}
+.budget-table h2{
+    font-size: 16px;
+    font-weight: bold;
+    padding:5px 10px;
+    margin:0;
+}
+
+.hidden{
+    /* display: none; */
+    visibility: hidden;
 }
