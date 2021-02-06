@@ -11,9 +11,10 @@ import { firestoreConnect } from 'react-redux-firebase'
 class MainUserSpecific extends Component {
   render(){
     console.log('props', this.props)
+    let accountID = this.props.location.aboutProps.account.id
+    console.log('accountID', accountID)
     let { myAccounts, transactions} = this.props;
-
-    let filteredTransactions = transactions.filter(transaction => transaction.account === 'Target Credit Card');
+    let filteredTransactions = transactions.filter(transaction => transaction.accountID === accountID);
     console.log(filteredTransactions);
 
     return (

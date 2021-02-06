@@ -10,10 +10,16 @@ import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 
 class MyAccounts extends Component {
   render() {
-    let { myAccounts } = this.props;
-
+    let { myAccounts, transactions } = this.props;
+    // function calculateBal(accounts){
+    //   let totalBal = 0
+    //   accounts.map((account) => {
+    //     totalBal += 
+    //   })
+    // }
     console.log('myAccounts', myAccounts)
     console.log('props', this.props)
+<<<<<<< HEAD
     const accountItems = myAccounts && myAccounts.length > 0 ? 
     myAccounts.map((account) =>
       <tr key={account.id}>
@@ -28,6 +34,25 @@ class MyAccounts extends Component {
     )
     :
     <tr></tr>
+=======
+    const accountItems = myAccounts.map((account) =>
+
+     <Link
+        to={{
+          pathname: `/mainuserspecific`,
+          aboutProps: { account: account }
+        }}>
+        <button >{account.name}:
+          {account.working_balance < 0 &&
+            <span className="red">{account.working_balance}</span>
+          }
+          {account.working_balance > 0 &&
+            <span>{account.working_balance}</span>
+          }
+        </button>
+      </Link>
+    );
+>>>>>>> WIP
 
     return(
       <div className='unmarkedList'>
@@ -39,9 +64,13 @@ class MyAccounts extends Component {
             </span>
           </li>
           <li>
-            <span className="unmarkedLink" href="#">
-              All Transactions
-            </span>
+            <Link
+              to={{
+                pathname: "/mainuserall",
+                props: { transactions: transactions }
+              }}>
+              <button >Main User All Accounts</button>
+            </Link>
           </li>
         </ul>
         <Table>
@@ -58,7 +87,6 @@ class MyAccounts extends Component {
           <Link
             to={{
               pathname: "/createaccount",
-              // props: { transactions: transactions }
             }}>
             <button >
               <FontAwesomeIcon icon={faPlusCircle} /> Add Account
@@ -74,11 +102,13 @@ const mapStateToProps = (state) => {
   console.log('state', state)
   return {
     myAccounts: state.firestore.ordered.accounts,
+    transactions: state.firestore.ordered.transactions,
   }
 }
 export default compose(
   connect(mapStateToProps),
   firestoreConnect([
-    { collection: 'accounts' }
+    { collection: 'accounts' },
+    { collection: 'transactions' },
   ])
 )(MyAccounts)
