@@ -44,25 +44,29 @@ class TransactionsHeader extends Component {
       payee: '',
     })
   }
+
   render(){
-    const {accounts} = this.props
+    const {accounts, budgetCats} = this.props
     console.log(accounts)
+    console.log("budgetCats", budgetCats)
     const accountDropdown = accounts && accounts.length > 0 ?
       accounts.map((account) =>
         <option value={account.name}>{account.name}</option>
       )
     :
     <tr></tr>
-    // let allAccounts = []
-
-    // if(this.accounts && this.accounts.length > 0){
-    //   for(let i = 0; i < accounts.length; i++){
-    //     allAccounts.push({
-    //       label: accounts[i].name,
-    //       value: accounts[i].name
-    //     })
-    //   }
-    // }
+    const categories = []
+    for(let i = 0; i < budgetCats.length; i++){
+      console.log('were inb!!!!!!!!!')
+      categories.push(Object.keys(budgetCats[i].name))
+    }
+    console.log('categories', categories)
+    const categoryDropdown = budgetCats && budgetCats.length > 0 ?
+      budgetCats.map((category) =>
+        <option value={category.name}>{category.name}</option>
+      )
+    :
+    <tr></tr>
 
     return (
       <div>
@@ -102,13 +106,16 @@ class TransactionsHeader extends Component {
             <DatePicker id={'date'} name="date" selected={this.state.date} onChange={this.handleChange}/>
           </td>
           <td colSpan ='7'>
-            <input type="text" id={"account"} onChange={this.handleChange} placeholder="Account"/>
+            <input type="text" id={"payee"} onChange={this.handleChange} placeholder="Payee"/>
           </td>
           <td colSpan ='7'>
-            <input type="text" id={"account"} onChange={this.handleChange} placeholder="Account"/>
+            <input type="text" id={"inflow"} onChange={this.handleChange} placeholder="Inflow"/>
           </td>
           <td colSpan ='7'>
-            <input type="text" id={"account"} onChange={this.handleChange} placeholder="Account"/>
+            <input type="text" id={"outflow"} onChange={this.handleChange} placeholder="Outflow"/>
+          </td>
+          <td colSpan ='7'>
+            <input type="text" id={"memo"} onChange={this.handleChange} placeholder="Memo"/>
             <FontAwesomeIcon icon={faCheck}
               className={this.showNewTransaction? '':'hidden'}
               style={{marginLeft:'8px'}} onClick={e=>{this.createNewTransaction(e)}}
@@ -124,6 +131,7 @@ class TransactionsHeader extends Component {
       return {
         transactions: state.firestore.ordered.transactions,
         accounts: state.firestore.ordered.accounts,
+        budgetCats: state.budget.budget.categories
       }
   }
 
