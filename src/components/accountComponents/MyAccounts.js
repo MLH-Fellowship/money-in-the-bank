@@ -18,12 +18,7 @@ function MyAccounts({accounts, transactions}) {
         }}>
           <td>{account.name}:</td>
           <td className="balance">
-            {account.working_balance < 0 &&
-              <span className="negative-balance">{account.working_balance}</span>
-            }
-            {account.working_balance > 0 &&
-              <span>{account.working_balance}</span>
-            }
+            <span className={account.working_balance < 0 && "negative-balance" }>{account.working_balance}</span>
           </td>
       </Link>
     </tr>
