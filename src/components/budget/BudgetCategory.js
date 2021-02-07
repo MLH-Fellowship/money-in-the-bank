@@ -46,7 +46,7 @@ const BudgetCategory = ({ idx, header, c, month, updateCategory, updateCategoryN
     }
 
     const onBudgetedFocus = (e) => {
-        console.log('focis')
+        // console.log('focis')
     }
 
     const onBudgetedBlur = (e) => {
@@ -54,7 +54,6 @@ const BudgetCategory = ({ idx, header, c, month, updateCategory, updateCategoryN
             const available = c.available + budgeted - c.budgeted + c.activity
             setCatAvailable(available);
             setBudgeted(budgeted)
-            console.log('und?', goal)
             // month, header,idx,available, newBudgeted, oldBudgeted, activity, name, budget, goal
             updateCategory(month, header,idx,available, budgeted,c.budgeted, c.activity, c.name, budget, goal)
         }

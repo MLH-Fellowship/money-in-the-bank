@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import {connect} from 'react-redux'
-import {updateSpendingGoal,getBudget} from '../../store/actions/budgetActions'
+import {updateSpendingGoal,getBudget, getTransactionByCategory } from '../../store/actions/budgetActions'
 var dayjs = require('dayjs')
 
-const BudgetViewHeader = ({budget, updateSpendingGoal,getBudget, available, budgeted, goal}) => {
+const BudgetViewHeader = ({budget, updateSpendingGoal,getBudget, available, budgeted, goal, getTransactionByCategory }) => {
     const {funds,  balance, unbudgeted, month}=budget
     const [spendingGoal, setSpendingGoal] = useState(0)
     const [spendingAvailable, setSpendingAvailable] = useState(0)
@@ -29,17 +29,21 @@ const BudgetViewHeader = ({budget, updateSpendingGoal,getBudget, available, budg
 
     const onBlur = (e) => {
         if(spendingGoal !== goal){
-            console.log('bluris', month, spendingGoal,budgeted,unbudgeted)
+            // console.log('bluris', month, spendingGoal,budgeted,unbudgeted)
             setSpendingAvailable(spendingGoal-budgeted)
             updateSpendingGoal(month, spendingGoal, budgeted,unbudgeted)
         }
     }
 
+    const getIt = () => {
+        getTransactionByCategory("Groceries")
+    }
     return (
         <header className='budget-header'>
             <article className="budget-date">
                 <h1>
                     {dayjs().format('MMM')}{" "}{dayjs().format('YYYY')}
+                    <button onClick={()=>getIt()}>CLICK ME!</button>
                 </h1>
             </article>
             <section className='budget-header-funds'>
@@ -72,6 +76,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return{
         getBudget: (month) => dispatch(getBudget(month)),
+        getTransactionByCategory : (cat) => dispatch(getTransactionByCategory(cat)),
         updateSpendingGoal: (month,goal,budgeted,unbudgeted) => dispatch(updateSpendingGoal(month,goal,budgeted,unbudgeted))
     }
 }

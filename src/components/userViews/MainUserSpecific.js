@@ -10,11 +10,11 @@ import { firestoreConnect } from 'react-redux-firebase'
 
 class MainUserSpecific extends Component {
   render(){
-    console.log('props', this.props)
+    // console.log('props', this.props)
     let { myAccounts, transactions} = this.props;
 
-    let filteredTransactions = transactions.filter(transaction => transaction.account === 'Target Credit Card');
-    console.log(filteredTransactions);
+    let filteredTransactions = transactions && transactions.length > 0 ? transactions.filter(transaction => transaction.account === 'Target Credit Card') : [];
+    // console.log(filteredTransactions);
 
     return (
       <div className="App grid-container paddingTop">
@@ -33,7 +33,7 @@ class MainUserSpecific extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('state', state)
+  // console.log('state', state)
   return {
     myAccounts: state.firestore.ordered.accounts,
     transactions: state.firestore.ordered.transactions,

@@ -1,17 +1,87 @@
 import {initialCategories} from '../../initialCategories'
 
-export const createTransaction = (transaction) => {
+export const createTransaction = (transaction, month, header) => {
+    // month format JAN2021, FEB2021, MAR2021
     return (dispatch, getState, { getFirebase, getFirestore }) => {
-        //call db
+        const state = getState();
+        const user = state.firebase.auth.uid
+        const categoryTemplate = state.user.categoryTemplate
         const firestore = getFirestore();
+
+        // need to get the budget of the transaction is being added to
+        let budget;
+        firestore.collection('budgets').doc(`${user}-${month}`).get()
+        .then(function(doc) {
+            if (doc.exists){
+                console.log('---budget exists')
+                budget = doc.data();
+                //update the budget
+                const cats = budget.categories;
+                let catIdx
+                let updatedBudgetFields={categories: cats};
+                
+                if(!transaction.category || transaction.category === ""){
+                    console.log("---cat was blank")
+                    updatedBudgetFields.unbudgeted = budget.unbudgeted + transaction.outflow;
+                }else{
+                    console.log("---cat was", transaction.category)
+                    catIdx = cats[header].findIndex((c) => c.name === transaction.category);
+                    console.log("---catIdx was:", catIdx)
+                    const updatedCategory = {
+                        available:cats[header][catIdx].available - transaction.outflow,
+                        budgeted: cats[header][catIdx].budgeted,
+                        activity: parseInt(cats[header][catIdx].activity) + parseInt(transaction.outflow),
+                        name: cats[header][catIdx].name
+                    }
+                    cats[header][catIdx]=updatedCategory;
+                }
+
+                console.log('---something here is  und:', updatedBudgetFields )
+                firestore.collection('budgets').doc(`${user}-${month}`).update(updatedBudgetFields)
+                .then(function(ref) {
+                   console.log('---updated to :', updatedBudgetFields )
+                })
+                .catch(function(error) {
+                    console.error("Error adding document: ", error);
+                });    
+            } else {
+                // make a new budget if none exists for that month
+                console.log('---made a new budget')
+                budgetTemp.categories = categoryTemplate ? categoryTemplate : initialCategories
+                if(!transaction.category || transaction.category === ""){
+                    budgetTemp.unbudgeted = transaction.outflow;
+                }else{
+                    let catIdx
+
+                    catIdx = budgetTemp.categories[header].findIndex((c) => c.name === transaction.category);
+                    const updatedCategory = {
+                        available:0 - transaction.outflow,
+                        budgeted: 0,
+                        activity: transaction.outflow,
+                        name: transaction.category
+                    }
+                    budgetTemp.categories[header][catIdx]=updatedCategory;
+                }
+
+                firestore.collection('budgets').doc(`${user}-${month}`).set(budgetTemp)
+                .then(function(docRef) {
+                    console.log("Document written with ID: ");
+                })
+                .catch(function(error) {
+                    console.error("Error adding document: ", error);
+                });
+            }})    
+        .catch((err)=> {
+            console.log('ERROR: ', err)
+        })
+
         firestore.collection('transactions').add({
           ...transaction,
-          primaryUser: 'user1',//TODO: replace with account's main user id
-          user: 'user2',
+          primaryUser: user,
           createdAt: new Date()
-          // catagory:'new',
 
         }).then(() => {
+
             dispatch({type: 'CREATE_TRANSACTION', transaction});
         }).catch((err)=> {
             console.log('ERROR: ', err)
@@ -22,12 +92,14 @@ export const createTransaction = (transaction) => {
 
 export const createAccount = (account) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
-        //call db
+        const state = getState();
+        const user = state.firebase.auth.uid
+
         const firestore = getFirestore();
         firestore.collection('accounts').add({
           ...account,
           cleared_balance: 0,
-          primaryUser: 'user1',//TODO: replace with account's main user id
+          primaryUser: user,
           uncleared_balance: 0,
         }).then(() => {
             dispatch({type: 'CREATE_ACCOUNT', account});
@@ -70,6 +142,28 @@ export const getBudget = (month) => {
         })
     }
 }
+
+export const getTransactionByCategory = (category) => {
+    return (dispatch, getState, { getFirebase, getFirestore }) => {
+        const state = getState();
+        const user = state.firebase.auth.uid
+      console.log('?????', category)
+        let  transactions = []
+        const firestore = getFirestore();
+        firestore.collection('transactions')
+        .where("primaryUser", "==", user)
+        .where("category", "==", category).get()
+        .then(querySnapshot => {
+            transactions = querySnapshot.docs.map(doc => doc.data());
+            console.log(transactions);
+            dispatch({type: 'GET_TRANSACTIONS_BY_CATEGORY', transactions});
+        })
+        .catch(function(error) {
+            console.error("Error adding document: ", error);
+        });
+    }
+}
+
 
 export const editTransaction = () => {
 }

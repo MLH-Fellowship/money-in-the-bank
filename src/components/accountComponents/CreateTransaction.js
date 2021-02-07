@@ -5,13 +5,15 @@ import { createTransaction } from '../../store/actions/budgetActions'
 class CreateTransaction extends Component {
   state = {
     account: '',
-    category: '',
+    // category: '',
     clear : false,
-    date: '', //TODO: replace with date object
+    // date: '', //TODO: replace with date object
     inflow: '',
     memo: '',
     outflow: '',
     payee: '',
+    category:'Groceries',
+    date:'2/19/21'
   }
   handleChange = (e) => {
     this.setState({
@@ -21,13 +23,13 @@ class CreateTransaction extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     // console.log(this.state);
-    this.props.createTransaction(this.state);
+    this.props.createTransaction(this.state, 'Feb2021', 'Basics');
     this.props.history.push('/mainuserspecific');
     //TODO: Bug - once redirected to mainuserspecific, we lose access to props
   }
   render() {
-    console.log('state', this.state)
-    console.log('props', this.props)
+    // console.log('state', this.state)
+    // console.log('props', this.props)
     // const { auth } = this.props;
     // if (!auth.uid) return <Redirect to='/signin' /> 
     return (
@@ -89,7 +91,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    createTransaction: (transaction) => dispatch(createTransaction(transaction))
+    createTransaction: (transaction, month, header) => dispatch(createTransaction(transaction, month, header))
   }
 }
 

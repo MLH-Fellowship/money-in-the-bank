@@ -12,8 +12,8 @@ class MyAccounts extends Component {
   render() {
     let { myAccounts } = this.props;
 
-    console.log('myAccounts', myAccounts)
-    console.log('props', this.props)
+    // console.log('myAccounts', myAccounts)
+    // console.log('props', this.props)
     const accountItems = myAccounts && myAccounts.length > 0 ? 
     myAccounts.map((account) =>
       <tr key={account.id}>
@@ -71,7 +71,7 @@ class MyAccounts extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('state', state)
+  // console.log('state', state)
   return {
     myAccounts: state.firestore.ordered.accounts,
   }

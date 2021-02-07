@@ -6,7 +6,8 @@ const initState={
         'Fun',
         'Other'
     ],
-    budget:{}
+    budget:{},
+    categoryTransactions:[]
 }
 
 const budgetReducer = (state=initState, action) => {
@@ -52,7 +53,6 @@ const budgetReducer = (state=initState, action) => {
                 budget: action.budget,
                 budgeted: action.budgeted,
                 available: action.available
-                // goal:action.budget.goal
             }
         case 'UPDATE_CATEGORY':
             return {
@@ -60,7 +60,6 @@ const budgetReducer = (state=initState, action) => {
                 budget: action.budget,
                 budgeted: action.budgeted,
                 available: action.available
-                // goal:action.budget.goal
             }
         case 'UPDATE_CATEGORY_NAME':
             return {
@@ -72,6 +71,11 @@ const budgetReducer = (state=initState, action) => {
             return {
                 ...state,
                 userTransactions:action.transactions
+            }
+        case 'GET_TRANSACTIONS_BY_CATEGORY':
+            return {
+                ...state,
+                categoryTransactions: action.transactions
             }
         default:
             return state;

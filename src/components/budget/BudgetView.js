@@ -10,7 +10,7 @@ var dayjs = require('dayjs')
 
 const BudgetView = ({getBudget, budget, categories, categoryHeaders}) => {
     useEffect(() => {
-        console.log('got')
+        // console.log('got')
         getBudget(dayjs().format('MMMYYYY'));
     },[]);
     // is this a problem on a new month?
