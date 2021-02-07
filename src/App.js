@@ -16,7 +16,11 @@ function App({auth}) {
   const {uid} = auth
   return (
     <BrowserRouter>
-      <div className="App grid-container paddingTop">
+      <div className="App grid-container">
+        <header className="page-header paddingTop">
+          <h1>The Budget App</h1>
+        </header>
+
         <div className="item1">
           <header>
             <Navbar/>

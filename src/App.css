@@ -64,12 +64,18 @@ body{
 }
 .item1{ grid-area: nav; }
 .item2{ grid-area: main; }
+.page-header {
+  grid-area: header;
+
+}
 .grid-container{
   display: grid;
   grid-template-areas:
+    'header header header header header header'
     'nav main main main main main'
     'nav main main main main main'
     'nav main main main main main';
+  grid-gap: 1rem;
   padding: 10px;
 }
 .grid-container > div{
