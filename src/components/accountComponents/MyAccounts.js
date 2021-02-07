@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Table from 'react-bootstrap/Table'
 import { connect } from 'react-redux'
 import '../../../src/App.css';
@@ -8,77 +8,79 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 
-class MyAccounts extends Component {
-  render() {
-    let { myAccounts } = this.props;
+function MyAccounts({accounts, transactions}) {
+  const accountItems = accounts && accounts.length > 0 ?accounts.map((account) =>
+  <tr>
+    <Link
+        to={{
+          pathname: `/mainuserspecific`,
+          aboutProps: { account: account }
+        }}>
+          <td>{account.name}:</td>
+          <td className="balance">
+            <span className={account.working_balance < 0 && "negative-balance" }>{account.working_balance}</span>
+          </td>
+      </Link>
+    </tr>
+  ): '';
 
-    console.log('myAccounts', myAccounts)
-    console.log('props', this.props)
-    const accountItems = myAccounts && myAccounts.length > 0 ? 
-    myAccounts.map((account) =>
-      <tr key={account.id}>
-        <td>{account.name}:</td>
-        {account.working_balance < 0 &&
-          <td className="red">{account.working_balance}</td>
-        }
-        {account.working_balance > 0 &&
-          <td>{account.working_balance}</td>
-        }
-      </tr>
-    )
-    :
-    <tr></tr>
-
-    return(
-      <div className='unmarkedList'>
-        {/* TODO: what do these do? Navigate to another page or filter */}
-        <ul>
-          <li>
-            <span className="unmarkedLink" href="#">
-              Budget
-            </span>
-          </li>
-          <li>
-            <span className="unmarkedLink" href="#">
-              All Transactions
-            </span>
-          </li>
-        </ul>
-        <Table>
-          <thead>
-            <tr>
-              <th>My Accounts</th>
-            </tr>
-          </thead>
-          <tbody>
-            {accountItems}
-          </tbody>
-        </Table>
-        <div className="addNewAccount">
+  return(
+    <div className='unmarkedList'>
+      <ul>
+        <li>
+        <Link
+            to={{
+              pathname: "/",
+              props: { transactions: transactions }
+            }}>
+            <span>Budget</span>
+          </Link>
+        </li>
+        <li>
           <Link
             to={{
-              pathname: "/createaccount",
-              // props: { transactions: transactions }
+              pathname: "/mainuserall",
+              props: { transactions: transactions }
             }}>
-            <button >
-              <FontAwesomeIcon icon={faPlusCircle} /> Add Account
-            </button>
+            <span>All Accounts</span>
           </Link>
-        </div>
+        </li>
+      </ul>
+      <Table>
+        <thead>
+          <tr>
+            <th>My Accounts</th>
+          </tr>
+        </thead>
+        <tbody>
+          {accountItems}
+        </tbody>
+      </Table>
+      <div className="addNewAccount">
+        <Link
+          to={{
+            pathname: "/createaccount",
+          }}>
+          <button >
+            <FontAwesomeIcon icon={faPlusCircle} /> Add Account
+          </button>
+        </Link>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 const mapStateToProps = (state) => {
   console.log('state', state)
   return {
-    myAccounts: state.firestore.ordered.accounts,
+    accounts: state.firestore.ordered.accounts,
+    transactions: state.firestore.ordered.transactions,
   }
 }
 export default compose(
   connect(mapStateToProps),
   firestoreConnect([
-    { collection: 'accounts' }
+    { collection: 'accounts' },
+    { collection: 'transactions' },
   ])
 )(MyAccounts)

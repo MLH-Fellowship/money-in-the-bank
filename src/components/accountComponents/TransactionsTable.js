@@ -2,15 +2,12 @@ import React, { Component } from "react";
 import Table from 'react-bootstrap/Table'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { connect } from 'react-redux'
 import '../../../src/App.css';
-import { compose } from 'redux'
-import { firestoreConnect } from 'react-redux-firebase'
 
 class TransactionsTable extends Component {
   render(){
     let { transactions, view } = this.props;
-    const transactionItems = transactions && transactions.length > 0 ? 
+    const transactionItems = transactions && transactions.length > 0 ?
     transactions.map((transaction) =>
       <tr className="paddingVertical transactionItems" key={transaction.id}>
         {view === 'all' &&
@@ -56,15 +53,4 @@ class TransactionsTable extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  console.log('state', state)
-  return {
-    // transactions: state.firestore.ordered.transactions,
-  }
-}
-export default compose(
-  connect(mapStateToProps),
-  firestoreConnect([
-    { collection: 'transactions' }
-  ])
-)(TransactionsTable)
+export default TransactionsTable;

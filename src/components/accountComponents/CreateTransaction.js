@@ -7,7 +7,7 @@ class CreateTransaction extends Component {
     account: '',
     category: '',
     clear : false,
-    date: '', //TODO: replace with date object
+    date: '',
     inflow: '',
     memo: '',
     outflow: '',
@@ -20,24 +20,19 @@ class CreateTransaction extends Component {
   }
   handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(this.state);
     this.props.createTransaction(this.state);
-    this.props.history.push('/mainuserspecific');
+    this.props.history.push('/');
     //TODO: Bug - once redirected to mainuserspecific, we lose access to props
   }
+
   render() {
-    console.log('state', this.state)
-    console.log('props', this.props)
-    // const { auth } = this.props;
-    // if (!auth.uid) return <Redirect to='/signin' /> 
     return (
       <div className="container">
         <form className="" onSubmit={this.handleSubmit}>
           <h5 className="">Create a New Transaction</h5>
           {/* TODO: Add date picker */}
           <div className="input-field">
-            <input type="text" id='date' onChange={this.handleChange} />
-            <label htmlFor="date">Date</label>
+
           </div>
           {/* TODO: Add drop down of all user accounts */}
           <div className="input-field">
@@ -46,30 +41,30 @@ class CreateTransaction extends Component {
           </div>
           {/* TODO: Add drop down of all user categories */}
           <div className="input-field">
-            <textarea id="category" className="materialize-textarea" onChange={this.handleChange}></textarea>
+            <textarea id="category" onChange={this.handleChange}></textarea>
             <label htmlFor="category">Category</label>
           </div>
           <div className="input-field">
-            <textarea id="payee" className="materialize-textarea" onChange={this.handleChange}></textarea>
+            <textarea id="payee" onChange={this.handleChange}></textarea>
             <label htmlFor="payee">Payee</label>
           </div>
           <div className="input-field">
-            <textarea id="memo" className="materialize-textarea" onChange={this.handleChange}></textarea>
+            <textarea id="memo" onChange={this.handleChange}></textarea>
             <label htmlFor="memo">Memo</label>
           </div>
           {/* TODO:Add money format */}
           <div className="input-field">
-            <textarea id="outflow" className="materialize-textarea" onChange={this.handleChange}></textarea>
+            <textarea id="outflow" onChange={this.handleChange}></textarea>
             <label htmlFor="outflow">Outflow</label>
           </div>
           {/* TODO:Add money format */}
           <div className="input-field">
-            <textarea id="inflow" className="materialize-textarea" onChange={this.handleChange}></textarea>
+            <textarea id="inflow" onChange={this.handleChange}></textarea>
             <label htmlFor="inflow">Inflow</label>
           </div>
           {/* TODO: Add checkbox yes/no */}
           <div className="input-field">
-            <textarea id="clear" className="materialize-textarea" onChange={this.handleChange}></textarea>
+            <textarea id="clear" onChange={this.handleChange}></textarea>
             <label htmlFor="clear">Clear</label>
           </div>
           <div className="input-field">
