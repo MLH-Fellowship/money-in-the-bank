@@ -3,6 +3,9 @@ import Table from 'react-bootstrap/Table'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../src/App.css';
+import { compose } from 'redux'
+import {connect} from 'react-redux'
+import { firestoreConnect } from 'react-redux-firebase'
 
 class TransactionsTable extends Component {
   render(){
@@ -53,4 +56,15 @@ class TransactionsTable extends Component {
   }
 }
 
-export default TransactionsTable;
+const mapStateToProps = (state) => {
+  // console.log('state', state)
+  return {
+    // transactions: state.firestore.ordered.transactions,
+  }
+}
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect([
+    { collection: 'transactions' }
+  ])
+)(TransactionsTable)

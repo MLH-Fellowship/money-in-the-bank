@@ -9,6 +9,7 @@ import MainUserAll from './components/userViews/MainUserAll'
 import CreateTransaction from './components/accountComponents/CreateTransaction'
 import CreateAccount from './components/accountComponents/CreateAccount'
 import BudgetView from './components/budget/BudgetView'
+import CatTransactions from './components/budget/CatTransactions'
 import { connect } from 'react-redux'
 
 function App({auth}) {
@@ -39,6 +40,9 @@ function App({auth}) {
               {!uid && <Redirect to={"/login"}/>}
             </Route>
             <Route path='/createaccount' component={CreateAccount}>
+              {!uid && <Redirect to={"/login"}/>}
+            </Route>
+            <Route path='/cat/:cat' component={CatTransactions}>
               {!uid && <Redirect to={"/login"}/>}
             </Route>
           </Switch>

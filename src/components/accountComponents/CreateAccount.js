@@ -21,6 +21,10 @@ class CreateAccount extends Component {
   }
 
   render() {
+    // console.log('state', this.state)
+    // console.log('props', this.props)
+    // const { auth } = this.props;
+    // if (!auth.uid) return <Redirect to='/signin' />
     return (
       <div className="container">
         <form className="" onSubmit={this.handleSubmit}>

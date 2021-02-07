@@ -8,7 +8,8 @@ const TransactionsSummary = (transactions) => {
   transactions = transactions.transactions
   let cleared_balance = 0
   let uncleared_balance = 0
-  //TODO: need to replace - update account balances in DB
+  // console.log('transactions', transactions)
+  
   if(transactions){
     for(let i = 0; i < transactions.length; i++){
       if(transactions[i].clear){
@@ -28,7 +29,9 @@ const TransactionsSummary = (transactions) => {
       }
     }
   }
-
+  
+  // console.log('cleared', cleared_balance)
+  // console.log('uncleared', uncleared_balance)
   let totalBal = cleared_balance + uncleared_balance
 
   return(

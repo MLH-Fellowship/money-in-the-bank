@@ -14,7 +14,8 @@ class MainUserSpecific extends Component {
     let accountID = this.props.location.aboutProps.account.id
     let accountName = this.props.location.aboutProps.account.name
     let { transactions } = this.props;
-    let filteredTransactions = transactions.filter(transaction => transaction.accountID === accountID);
+    let filteredTransactions = transactions && transactions.length > 0 ? transactions.filter(transaction => transaction.account === 'Target Credit Card') : [];
+    // console.log(filteredTransactions);
 
     return (
       <div className="App paddingTop">
@@ -28,6 +29,7 @@ class MainUserSpecific extends Component {
 }
 
 const mapStateToProps = (state) => {
+  // console.log('state', state)
   return {
     transactions: state.firestore.ordered.transactions,
   }

@@ -1,17 +1,20 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { createTransaction } from '../../store/actions/budgetActions'
+import { compose } from 'redux'
 
 class CreateTransaction extends Component {
   state = {
     account: '',
-    category: '',
+    // category: '',
     clear : false,
-    date: '',
+    // date: '', //TODO: replace with date object
     inflow: '',
     memo: '',
     outflow: '',
     payee: '',
+    category:'Groceries',
+    date:'2/19/21'
   }
   handleChange = (e) => {
     this.setState({
@@ -20,12 +23,17 @@ class CreateTransaction extends Component {
   }
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.createTransaction(this.state);
-    this.props.history.push('/');
+    // console.log(this.state);
+    this.props.createTransaction(this.state, 'Feb2021', 'Basics');
+    this.props.history.push('/mainuserspecific');
     //TODO: Bug - once redirected to mainuserspecific, we lose access to props
   }
 
   render() {
+    // console.log('state', this.state)
+    // console.log('props', this.props)
+    // const { auth } = this.props;
+    // if (!auth.uid) return <Redirect to='/signin' /> 
     return (
       <div className="container">
         <form className="" onSubmit={this.handleSubmit}>
@@ -84,7 +92,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    createTransaction: (transaction) => dispatch(createTransaction(transaction))
+    createTransaction: (transaction, month, header) => dispatch(createTransaction(transaction, month, header))
   }
 }
 
