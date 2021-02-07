@@ -1,15 +1,15 @@
 import {initialCategories} from '../../initialCategories'
 
 export const createTransaction = (transaction) => {
-    return (dispatch, getState, { getFirebase, getFirestore }) => {
-        //call db
+    return (dispatch, getState, { getFirestore }) => {
+        const state = getState();
+        const user = state.firebase.auth.uid
         const firestore = getFirestore();
         firestore.collection('transactions').add({
           ...transaction,
-          primaryUser: 'user1',//TODO: replace with account's main user id
-          user: 'user2',
+          primaryUser: '',
+          user: user,
           createdAt: new Date()
-          // catagory:'new',
 
         }).then(() => {
             dispatch({type: 'CREATE_TRANSACTION', transaction});
@@ -21,13 +21,13 @@ export const createTransaction = (transaction) => {
 }
 
 export const createAccount = (account) => {
-    return (dispatch, getState, { getFirebase, getFirestore }) => {
-        //call db
+    return (dispatch, getState, { getFirestore }) => {
+        const state = getState();
         const firestore = getFirestore();
         firestore.collection('accounts').add({
           ...account,
           cleared_balance: 0,
-          primaryUser: 'user1',//TODO: replace with account's main user id
+          primaryUser: state.firebase.auth.uid,
           uncleared_balance: 0,
         }).then(() => {
             dispatch({type: 'CREATE_ACCOUNT', account});

@@ -5,6 +5,7 @@ import { createAccount } from '../../store/actions/budgetActions'
 class CreateAccount extends Component {
   state = {
     name: '',
+    primaryUser: '',
     secondaryUsers: '',
     working_balance: ''
   }
@@ -18,11 +19,8 @@ class CreateAccount extends Component {
     this.props.createAccount(this.state);
     this.props.history.push('/');
   }
+
   render() {
-    console.log('state', this.state)
-    console.log('props', this.props)
-    // const { auth } = this.props;
-    // if (!auth.uid) return <Redirect to='/signin' />
     return (
       <div className="container">
         <form className="" onSubmit={this.handleSubmit}>
@@ -35,7 +33,6 @@ class CreateAccount extends Component {
             <input type="text" id='working_balance' onChange={this.handleChange} />
             <label htmlFor="working_balance">Working Balance</label>
           </div>
-          {/* TODO: add ability to create more than one secondaryuser. multiple text boxes. save as array */}
           <div className="input-field">
             <textarea id="secondaryUsers" className="materialize-textarea" onChange={this.handleChange}></textarea>
             <label htmlFor="secondaryUsers">Secondary User</label>

@@ -16,26 +16,40 @@ function App({auth}) {
 
   return (
     <BrowserRouter>
-      <header>
-        <Navbar/>
-      </header>
-      <Switch>
-        <Route exact path='/' component={BudgetView}>
-          {!uid && <Redirect to={"/login"}/>}
-        </Route>
-        <Route path='/login' component={SignIn}/>
-        <Route path='/signup' component={SignUp}/>
-        <Route path='/mainuserspecific' component={MainUserSpecific}/>
-        <Route path='/mainuserall' component={MainUserAll}/>
-        <Route path='/createtransaction' component={CreateTransaction}/>
-        <Route path='/createaccount' component={CreateAccount}/>
-      </Switch>
+      <div className="App grid-container paddingTop">
+        <div className="item1">
+          <header>
+            <Navbar/>
+          </header>
+        </div>
+        <div className="item2">
+          <Switch>
+            <Route exact path='/' component={BudgetView}>
+              {!uid && <Redirect to={"/login"}/>}
+            </Route>
+            <Route path='/login' component={SignIn}/>
+            <Route path='/signup' component={SignUp}/>
+            <Route path='/mainuserspecific' component={MainUserSpecific}>
+              {!uid && <Redirect to={"/login"}/>}
+            </Route>
+            <Route path='/mainuserall' component={MainUserAll}>
+              {!uid && <Redirect to={"/login"}/>}
+            </Route>
+            <Route path='/createtransaction' component={CreateTransaction}>
+              {!uid && <Redirect to={"/login"}/>}
+            </Route>
+            <Route path='/createaccount' component={CreateAccount}>
+              {!uid && <Redirect to={"/login"}/>}
+            </Route>
+          </Switch>
+        </div>
+      </div>
     </BrowserRouter>
   );
 }
 const mapStateToProps = (state) => {
   return {
-    auth: state.firebase.auth
+    auth: state.firebase.auth,
   }
 }
 
