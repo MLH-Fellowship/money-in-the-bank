@@ -10,20 +10,18 @@ import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 
 function MyAccounts({accounts, transactions}) {
   const accountItems = accounts && accounts.length > 0 ?accounts.map((account) =>
+  <tr>
     <Link
-      to={{
-        pathname: `/mainuserspecific`,
-        aboutProps: { account: account }
-      }}>
-      <span>{account.name}:
-        {account.working_balance < 0 &&
-          <span className="red">{account.working_balance}</span>
-        }
-        {account.working_balance > 0 &&
-          <span>{account.working_balance}</span>
-        }
-      </span>
-    </Link>
+        to={{
+          pathname: `/mainuserspecific`,
+          aboutProps: { account: account }
+        }}>
+          <td>{account.name}:</td>
+          <td className="balance">
+            <span className={account.working_balance < 0 && "negative-balance" }>{account.working_balance}</span>
+          </td>
+      </Link>
+    </tr>
   ): '';
 
   return(
