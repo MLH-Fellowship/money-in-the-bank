@@ -92,7 +92,10 @@ body{
   list-style: none;
   padding-inline-start: 10px !important;
 }
-.red{
+.balance {
+  text-align: right;
+}
+.negative-balance{
   color: red;
 }
 .transactionItems , .transaction div{
