@@ -215,16 +215,16 @@ button:hover {
 }
 .table td, .table th {
   padding: .35rem .25rem !important;
-  overflow:hidden;
+  /* overflow:hidden; */
 }
-.table td:first-child {
+/* .table td:first-child {
   width: 80%;
   white-space: nowrap;
-}
-.table td:last-child {
+} */
+/* .table td:last-child {
   width: 6em;
   text-align: right;
-}
+} */
 
 td.balance span {
   color: var(--leaf-green)

@@ -12,20 +12,20 @@ class TransactionsTable extends Component {
     transactions.map((transaction) =>
       <tr className="paddingVertical transactionItems" key={transaction.id}>
         {view === 'all' &&
-          <td width="175">{transaction.account}</td>
+          <td>{transaction.account}</td>
         }
         {typeof transaction.date === 'object' ?
-          <td width="175">{dayjs.unix(transaction.date.seconds).format('MMM DD YYYY')}</td> 
+          <td>{dayjs.unix(transaction.date.seconds).format('MMM DD YYYY')}</td> 
           :
-          <td width="175">{dayjs(transaction.date).format('MMM DD YYYY')}</td>
+          <td>{dayjs(transaction.date).format('MMM DD YYYY')}</td>
         }
-        <td width="175">{transaction.payee}</td>
-        <td width="175">{transaction.category}</td>
-        <td width="175">{transaction.memo}</td>
-        <td width="175">{transaction.outflow}</td>
-        <td width="175">{transaction.inflow}</td>
+        <td>{transaction.payee}</td>
+        <td>{transaction.category}</td>
+        <td>{transaction.memo}</td>
+        <td>{transaction.outflow}</td>
+        <td>{transaction.inflow}</td>
         {transaction.clear &&
-          <td width="175"><FontAwesomeIcon icon={faCheck} /></td>
+          <td><FontAwesomeIcon icon={faCheck} /></td>
         }
       </tr>
     )
