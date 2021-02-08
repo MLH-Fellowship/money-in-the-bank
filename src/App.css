@@ -128,6 +128,11 @@ body{
   list-style: none;
   padding-inline-start: 10px !important;
 }
+.unmarkedList ul.view-links {
+  padding: .5rem 0;
+  background-color: var(--steel-blue);
+  color: var(--super-light-grey)
+}
 .utility-links {
   list-style-type: none;
   color: var(--tealish);
