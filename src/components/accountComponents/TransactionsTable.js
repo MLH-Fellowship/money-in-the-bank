@@ -6,17 +6,26 @@ import '../../../src/App.css';
 import { compose } from 'redux'
 import {connect} from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
+var dayjs = require('dayjs')
 
 class TransactionsTable extends Component {
   render(){
-    let { transactions, view } = this.props;
+    let { transactions, view, accountName } = this.props;
+    if(view === 'specific'){
+      transactions = transactions.filter((transaction => transaction.account === accountName))
+    }
     const transactionItems = transactions && transactions.length > 0 ?
     transactions.map((transaction) =>
       <tr className="paddingVertical transactionItems" key={transaction.id}>
         {view === 'all' &&
           <td width="175">{transaction.account}</td>
         }
-        <td width="175">{transaction.date}</td>
+        {console.log(typeof transaction.date)}
+        {typeof transaction.date === 'object' ?
+          <td width="175">{dayjs.unix(transaction.date.seconds).format('MMM DD YYYY')}</td> 
+          :
+          <td width="175">{dayjs(transaction.date).format('MMM DD YYYY')}</td>
+        }
         <td width="175">{transaction.payee}</td>
         <td width="175">{transaction.category}</td>
         <td width="175">{transaction.memo}</td>
@@ -57,9 +66,8 @@ class TransactionsTable extends Component {
 }
 
 const mapStateToProps = (state) => {
-  // console.log('state', state)
   return {
-    // transactions: state.firestore.ordered.transactions,
+    transactions: state.firestore.ordered.transactions,
   }
 }
 export default compose(

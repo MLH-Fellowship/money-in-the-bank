@@ -1,6 +1,6 @@
 import {initialCategories} from '../../initialCategories'
 
-export const createTransaction = (transaction, month, header) => {
+export const createTransaction = (transaction) => {
     // month format JAN2021, FEB2021, MAR2021
     return (dispatch, getState, { getFirebase, getFirestore }) => {
         const state = getState();
@@ -10,7 +10,7 @@ export const createTransaction = (transaction, month, header) => {
 
         // need to get the budget of the transaction is being added to
         let budget;
-        firestore.collection('budgets').doc(`${user}-${month}`).get()
+        firestore.collection('budgets').doc(`${user}-${transaction.month}`).get()
         .then(function(doc) {
             if (doc.exists){
                 console.log('---budget exists')
@@ -19,25 +19,25 @@ export const createTransaction = (transaction, month, header) => {
                 const cats = budget.categories;
                 let catIdx
                 let updatedBudgetFields={categories: cats};
-                
+
                 if(!transaction.category || transaction.category === ""){
                     console.log("---cat was blank")
                     updatedBudgetFields.unbudgeted = budget.unbudgeted + transaction.outflow;
                 }else{
                     console.log("---cat was", transaction.category)
-                    catIdx = cats[header].findIndex((c) => c.name === transaction.category);
+                    catIdx = cats[transaction.header].findIndex((c) => c.name === transaction.category);
                     console.log("---catIdx was:", catIdx)
                     const updatedCategory = {
-                        available:cats[header][catIdx].available - transaction.outflow,
-                        budgeted: cats[header][catIdx].budgeted,
-                        activity: parseInt(cats[header][catIdx].activity) + parseInt(transaction.outflow),
-                        name: cats[header][catIdx].name
+                        available:cats[transaction.header][catIdx].available - transaction.outflow,
+                        budgeted: cats[transaction.header][catIdx].budgeted,
+                        activity: parseInt(cats[transaction.header][catIdx].activity) + parseInt(transaction.outflow),
+                        name: cats[transaction.header][catIdx].name
                     }
-                    cats[header][catIdx]=updatedCategory;
+                    cats[transaction.header][catIdx]=updatedCategory;
                 }
 
                 console.log('---something here is  und:', updatedBudgetFields )
-                firestore.collection('budgets').doc(`${user}-${month}`).update(updatedBudgetFields)
+                firestore.collection('budgets').doc(`${user}-${transaction.month}`).update(updatedBudgetFields)
                 .then(function(ref) {
                    console.log('---updated to :', updatedBudgetFields )
                 })
@@ -45,7 +45,7 @@ export const createTransaction = (transaction, month, header) => {
                     console.error("Error adding document: ", error);
                 });    
             } else {
-                // make a new budget if none exists for that month
+                // make a new budget if none exists for that transaction.month
                 console.log('---made a new budget')
                 budgetTemp.categories = categoryTemplate ? categoryTemplate : initialCategories
                 if(!transaction.category || transaction.category === ""){
@@ -53,17 +53,17 @@ export const createTransaction = (transaction, month, header) => {
                 }else{
                     let catIdx
 
-                    catIdx = budgetTemp.categories[header].findIndex((c) => c.name === transaction.category);
+                    catIdx = budgetTemp.categories[transaction.header].findIndex((c) => c.name === transaction.category);
                     const updatedCategory = {
                         available:0 - transaction.outflow,
                         budgeted: 0,
                         activity: transaction.outflow,
                         name: transaction.category
                     }
-                    budgetTemp.categories[header][catIdx]=updatedCategory;
+                    budgetTemp.categories[transaction.header][catIdx]=updatedCategory;
                 }
 
-                firestore.collection('budgets').doc(`${user}-${month}`).set(budgetTemp)
+                firestore.collection('budgets').doc(`${user}-${transaction.month}`).set(budgetTemp)
                 .then(function(docRef) {
                     console.log("Document written with ID: ");
                 })
