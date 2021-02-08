@@ -11,10 +11,10 @@ import CreateAccount from './components/accountComponents/CreateAccount'
 import BudgetView from './components/budget/BudgetView'
 import CatTransactions from './components/budget/CatTransactions'
 import { connect } from 'react-redux'
+import Loading from './components/layout/Loading'
 
 function App({auth}) {
   const {uid} = auth
-
   return (
     <BrowserRouter>
       <div className="App grid-container paddingTop">
@@ -25,7 +25,10 @@ function App({auth}) {
         </div>
         <div className="item2">
           <Switch>
-            <Route exact path='/' component={BudgetView}>
+            <Route exact path='/' component={Loading}>
+              {!uid && <Redirect to={"/login"}/>}
+            </Route>
+            <Route path='/budget/:id' component={BudgetView}>
               {!uid && <Redirect to={"/login"}/>}
             </Route>
             <Route path='/login' component={SignIn}/>
@@ -42,7 +45,7 @@ function App({auth}) {
             <Route path='/createaccount' component={CreateAccount}>
               {!uid && <Redirect to={"/login"}/>}
             </Route>
-            <Route path='/cat/:cat' component={CatTransactions}>
+            <Route path='/cat/:id/:cat' component={CatTransactions}>
               {!uid && <Redirect to={"/login"}/>}
             </Route>
           </Switch>

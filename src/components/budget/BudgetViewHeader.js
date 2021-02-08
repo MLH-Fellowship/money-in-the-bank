@@ -1,23 +1,36 @@
 import React, {useState, useEffect} from 'react'
 import {connect} from 'react-redux'
 import {updateSpendingGoal,getBudget, getTransactionByCategory } from '../../store/actions/budgetActions'
+import MonthPicker from './MonthPicker'
+import { withRouter } from 'react-router'
+
 var dayjs = require('dayjs')
 
-const BudgetViewHeader = ({budget, updateSpendingGoal,getBudget, available, budgeted, goal, getTransactionByCategory }) => {
+const BudgetViewHeader = ({id, history, budget, updateSpendingGoal,getBudget, available, budgeted, goal, getTransactionByCategory }) => {
     const {funds,  balance, unbudgeted, month}=budget
     const [spendingGoal, setSpendingGoal] = useState(0)
     const [spendingAvailable, setSpendingAvailable] = useState(0)
 
+    const idTemp = id ?  dayjs(id).format('MMMYYYY') : dayjs().format('MMMYYYY')
+    const [budgetDate, setBudgetDate] = useState(new Date(idTemp))
+    const [budgetMonth, seBudgetMonth] = useState(idTemp)
+
     useEffect((spendingAvailable, spendingGoal) => {
-        console.log('BVH UE')
+        // console.log('BVH UE', id, '?')
         if(spendingAvailable !== available){
             setSpendingAvailable(available);
         }
         if(spendingGoal !== goal){
             setSpendingGoal(goal);
         }
-        getBudget(dayjs().format('MMMYYYY'));
-    },[available, goal]);
+        getBudget(budgetMonth);
+    },[available, goal, budgetMonth]);
+
+    const setMonth = (month) => {
+        setBudgetDate(month)
+        seBudgetMonth(dayjs(month).format('MMMYYYY'))
+        history.push(`/budget/${dayjs(month).format('MMMYYYY')}`)
+    }
 
     const onChange = (e) => {
         if(e.target.value === ""){
@@ -35,16 +48,13 @@ const BudgetViewHeader = ({budget, updateSpendingGoal,getBudget, available, budg
         }
     }
 
-    const getIt = () => {
-        getTransactionByCategory("Groceries")
-    }
     return (
         <header className='budget-header'>
             <article className="budget-date">
                 <h1>
-                    {dayjs().format('MMM')}{" "}{dayjs().format('YYYY')}
-                    <button onClick={()=>getIt()}>CLICK ME!</button>
+                    {dayjs(budgetMonth).format('MMM')}{" "}{dayjs(budgetMonth).format('YYYY')}
                 </h1>
+                <MonthPicker date={budgetDate ? budgetDate : new Date()} setDate={setMonth}/>
             </article>
             <section className='budget-header-funds'>
                 <article className='budget-header-available'>
@@ -64,8 +74,12 @@ const BudgetViewHeader = ({budget, updateSpendingGoal,getBudget, available, budg
     )
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
+    const id = ownProps.match ? ownProps.match.params.id : null;
+    const history = ownProps.history
     return {
+        id,
+        history,
         budget: state.budget.budget,
         available: state.budget.available,
         goal: state.budget.goal,
@@ -81,5 +95,7 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(BudgetViewHeader)
+export default withRouter(
+connect(mapStateToProps, mapDispatchToProps)
+(BudgetViewHeader))
 

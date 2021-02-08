@@ -13,8 +13,8 @@ class CreateTransaction extends Component {
     memo: '',
     outflow: '',
     payee: '',
-    category:'Groceries',
-    date:'2/19/21'
+    category:'Rent',
+    date:'2/3/21'
   }
   handleChange = (e) => {
     this.setState({

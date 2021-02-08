@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faTrash, faSearchDollar, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { updateCategory, updateCategoryName, deleteCategory } from '../../store/actions/budgetActions';
 import {connect} from 'react-redux'
+import { Link } from "react-router-dom"
 
 const BudgetCategory = ({ idx, header, c, month, updateCategory, updateCategoryName, deleteCategory, budget, goal}) => {
     const [focus, setFocus] = useState(false);
@@ -65,20 +66,27 @@ const BudgetCategory = ({ idx, header, c, month, updateCategory, updateCategoryN
     else if (deleted){return <></>}
     return (
         <tr key={`cat-${c.name}-${idx}`}>
-            <td><p style={{paddingLeft:'20px'}} onMouseLeave={e=>onMouseLeave(e)}>
+            <td>
+                <p style={{paddingLeft:'20px'}} onMouseLeave={e=>onMouseLeave(e)}>
                 <input onMouseOver={e=>onMouseEnter(e)} type="text" id={header+"."+c.name} onChange={e => onChange(e)} value={catName}/>
                 <FontAwesomeIcon icon={faCheck} 
                     className={isHidden ? "hidden": "budget-icon"} 
                     style={{marginLeft:'8px'}} onClick={e=>{onUpdate(e)}}/>
                 <FontAwesomeIcon icon={faTrash} 
-                // === header+"."+name
                     className={isHidden ? "hidden": "budget-icon"} 
                 style={{marginLeft:'10px'}} onClick={e=>{onDelete(e)}}/>
             </p></td>
             <td><p>
                 $ <input type="text" id={header+"."+c.name+".budgeted"} onChange={onChange} onFocus={e=>onBudgetedFocus(e)} onBlur={e=>onBudgetedBlur(e)} value={budgeted}/>
             </p></td>
-            <td><p>{c.activity}</p></td>
+            <td><p>
+                <Link to={{ pathname: `/cat/${month}/${c.name}`}}>
+                    {/* <FontAwesomeIcon icon={faSearch} 
+                        style={{marginRight:'8px'}} onClick={e=>{onUpdate(e)}}
+                    /> */}
+                    {c.activity}
+                </Link>
+            </p></td>
             <td><p>{catAvailable}</p></td>
         </tr>
     )
