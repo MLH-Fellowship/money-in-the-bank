@@ -9,24 +9,23 @@ import { firestoreConnect } from 'react-redux-firebase'
 
 class MainUserSpecific extends Component {
   render(){
-    //console.log('props', props)
-    // let accountID = this.props.location.aboutProps.account.id
+    let accountID = this.props.location.aboutProps ? this.props.location.aboutProps.account.id : ''
     let accountName = this.props.location.aboutProps ? this.props.location.aboutProps.account.name : ''
     let { transactions } = this.props;
-    let filteredTransactions = transactions && transactions.length > 0 ? transactions.filter(transaction => transaction.account === 'Target Credit Card') : [];
-
+    console.log(accountName)
+    let filteredTransactions = transactions && transactions.length > 0 ? transactions.filter(transaction => transaction.accountID === accountID) : [];
+    console.log(filteredTransactions)
     return (
       <div className="App paddingTop">
         <h2>{accountName}</h2>
         <TransactionsTable transactions={filteredTransactions} view='specific' accountName={accountName}/>
-        <TransactionsSummary transactions={filteredTransactions}/>
+        <TransactionsSummary transactions={filteredTransactions} accountName={accountName} accountName={accountName}/>
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  // console.log('state', state)
   return {
     transactions: state.firestore.ordered.transactions,
   }

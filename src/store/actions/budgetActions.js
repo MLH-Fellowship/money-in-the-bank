@@ -99,9 +99,8 @@ export const createAccount = (account) => {
         firestore.collection('accounts').add({
           ...account,
           cleared_balance: 0,
-          primaryUser: state.firebase.auth.uid,
-          primaryUser: user,
           uncleared_balance: 0,
+          workind_balance: 0
         }).then(() => {
             dispatch({type: 'CREATE_ACCOUNT', account});
         }).catch((err)=> {

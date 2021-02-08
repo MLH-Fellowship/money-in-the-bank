@@ -5,11 +5,11 @@ import '../../../src/App.css';
 import { Link } from "react-router-dom";
 import AddTransaction from './AddTransaction'
 
-const TransactionsSummary = (transactions) => {
+const TransactionsSummary = (transactions, accountName) => {
+// TODO - will remove when transaction update account/budget totals
   transactions = transactions.transactions
   let cleared_balance = 0
   let uncleared_balance = 0
-
   if(transactions){
     for(let i = 0; i < transactions.length; i++){
       if(transactions[i].clear){
@@ -31,11 +31,12 @@ const TransactionsSummary = (transactions) => {
   }
 
   let totalBal = cleared_balance + uncleared_balance
-
+  console.log(accountName)
+  console.log(transactions)
   return(
     <div className="border padding">
       <div className="addTransaction">
-        <AddTransaction/>
+        <AddTransaction accountName={accountName}/>
       </div>
       <div className="makeTransfer grid-container2">
         <Link

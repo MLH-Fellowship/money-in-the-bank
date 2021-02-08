@@ -9,9 +9,13 @@ var dayjs = require('dayjs')
 
 class AddTransaction extends Component {
   budgetCats = this.props.budgetCats
+  accounts = this.props.accounts
+
+
 
   state = {
     account: '',
+    accountID: '',
     month:'',
     category: '',
     clear : false,
@@ -22,8 +26,10 @@ class AddTransaction extends Component {
     outflow: '',
     payee: '',
     showNewTransaction: false,
-    header: ''
+    header: '',
+    primaryUser: this.props.auth.uid
   }
+
   handleChange = (e) => {
     const target = e.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -35,9 +41,6 @@ class AddTransaction extends Component {
   }
 
   handleDate = (e) => {
-    console.log( e)
-    console.log(dayjs(e).format('MMMYYYY'))
-    console.log(dayjs(e).format('MMMDDYYYY'))
     this.setState({
       date: e,
       month: dayjs(e).format('MMMYYYY')
@@ -52,10 +55,25 @@ class AddTransaction extends Component {
     }
     return cat[0][key]
   }
+  findAcct = (id, key) => {
+    let acct = []
+    for(let i = 0; i < this.accounts.length; i++){
+      if(this.accounts[i].id === id){
+        acct.push(this.accounts[i])
+      }
+    }
+    return acct[0][key]
+  }
   handleCategory = (e) => {
     this.setState({
       category: this.findCat(parseInt(e.target.value), "name"),
       header: this.findCat(parseInt(e.target.value), "header")
+    });
+  }
+  handleAccount = (e) => {
+    this.setState({
+      accountID: this.findAcct((e.target.value), "id"),
+      account: this.findAcct((e.target.value), "name")
     });
   }
   handleShowNewTransaction = () =>{
@@ -74,24 +92,30 @@ class AddTransaction extends Component {
     console.log('add transaction')
     this.props.createTransaction(this.state)
     this.setState({
-      showNewTransaction: !this.showNewTransaction,
       account: '',
+      accountID: '',
+      month:'',
       category: '',
       clear : false,
       date: '',
+      header: '',
       inflow: '',
       memo: '',
       outflow: '',
       payee: '',
+      showNewTransaction: false,
+      header: '',
+      primaryUser: this.props.auth.uid
     })
   }
 
   render(){
-    const {accounts} = this.props
-    console.log(this.state)
+    const {accounts, accountName} = this.props
+    console.log(this.props)
+    console.log(accounts)
     const accountDropdown = accounts && accounts.length > 0 ?
       accounts.map((account) =>
-        <option value={account.name}>{account.name}</option>
+        <option value={account.id}>{account.name}</option>
       )
     :
     <tr></tr>
@@ -122,7 +146,7 @@ class AddTransaction extends Component {
         </span>
         <tr className={this.state.showNewTransaction ? '':'hidden'}>
           <td colSpan ='7'>
-            <select  id={'account'} value={this.state.account} onChange={this.handleChange} placeholder="Select Account">
+            <select  id={'account'} value={this.state.account} onChange={this.handleAccount} placeholder="Select Account">
             <option disabled={true} value="">Account</option>
               {accountDropdown}
             </select>
@@ -174,7 +198,8 @@ class AddTransaction extends Component {
       return {
         transactions: state.firestore.ordered.transactions,
         accounts: state.firestore.ordered.accounts,
-        budgetCats: state.budget.budget.categories
+        budgetCats: state.budget.budget.categories,
+        auth: state.firebase.auth
       }
   }
 
