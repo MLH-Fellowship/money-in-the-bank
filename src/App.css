@@ -190,9 +190,12 @@ button:hover {
 }
 .utility-links {
   list-style-type: none;
+  border-bottom: 1px solid var(--light-grey);
+}
+.utility-links span {
   color: var(--tealish);
   font-weight: bold;
-  border-bottom: 1px solid var(--light-grey);
+
 }
 .transactionItems , .transaction div{
   border-top: black solid .5px;

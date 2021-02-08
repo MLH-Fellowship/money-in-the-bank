@@ -8,7 +8,7 @@ function SignedInLinks({signOut}) {
   return (
     <div>
       <ul className="utility-links">
-          <li className="right"><a onClick={signOut}>Log Out</a></li>
+          <li className="right"><a onClick={signOut}><span>Log Out</span></a></li>
       </ul>
       <ul>
         <MyAccounts/>
