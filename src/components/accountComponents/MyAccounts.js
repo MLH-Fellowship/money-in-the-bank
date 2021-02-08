@@ -26,7 +26,7 @@ function MyAccounts({accounts, transactions}) {
 
   return(
     <div className='unmarkedList'>
-      <ul>
+      <ul className="view-links">
         <li>
         <Link
             to={{
@@ -61,7 +61,7 @@ function MyAccounts({accounts, transactions}) {
           to={{
             pathname: "/createaccount",
           }}>
-          <button >
+          <button className="budget-button">
             <FontAwesomeIcon icon={faPlusCircle} /> Add Account
           </button>
         </Link>

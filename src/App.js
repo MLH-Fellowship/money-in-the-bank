@@ -1,6 +1,5 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
-import './App.css'
 import Navbar from './components/layout/Navbar'
 import SignIn from './components/SignIn'
 import SignUp from './components/SignUp'
@@ -11,12 +10,17 @@ import BudgetView from './components/budget/BudgetView'
 import CatTransactions from './components/budget/CatTransactions'
 import { connect } from 'react-redux'
 import Loading from './components/layout/Loading'
+import './App.css'
 
 function App({auth}) {
   const {uid} = auth
   return (
     <BrowserRouter>
-      <div className="App grid-container paddingTop">
+      <div className="App grid-container">
+        <header className="page-header">
+          <h1 className="app-name">The Budget App</h1>
+        </header>
+
         <div className="item1">
           <header>
             <Navbar/>

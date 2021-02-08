@@ -5,6 +5,7 @@ import Table from 'react-bootstrap/Table'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import BudgetTableBody from './BudgetTableBody'
 import BudgetViewHeader from './BudgetViewHeader'
+import '../../../src/App.css';
 
 var dayjs = require('dayjs')
 

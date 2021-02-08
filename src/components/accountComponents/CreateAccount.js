@@ -23,26 +23,18 @@ class CreateAccount extends Component {
     const auth = this.props && this.props.auth.uid;
     console.log(this.state)
     return (
-      <div className="container">
-        <form className="" onSubmit={this.handleSubmit}>
-          <h5 className="">Create a New Account</h5>
-          <div className="input-field">
-            <input type="text" id='name' onChange={this.handleChange} />
-            <label htmlFor="name">Name</label>
-          </div>
-          <div className="input-field">
-            <input type="text" id='working_balance' onChange={this.handleChange} />
-            <label htmlFor="working_balance">Working Balance</label>
-          </div>
-          <div className="input-field">
-            <textarea id="secondaryUsers" className="materialize-textarea" onChange={this.handleChange}></textarea>
-            <label htmlFor="secondaryUsers">Secondary User</label>
-          </div>
-          <div className="input-field">
-            <button className="btn">Create Account</button>
-          </div>
+      <>
+        <h2 className="section-title paddingTop">Create a New Account</h2>
+        <form className="account-creation-form" onSubmit={this.handleSubmit}>
+          <label htmlFor="name">Name</label>
+          <input type="text" id='name' onChange={this.handleChange} />
+          <label htmlFor="working_balance">Working Balance</label>
+          <input type="text" id='working_balance' onChange={this.handleChange} />
+          <label htmlFor="secondaryUsers">Secondary User</label>
+          <textarea id="secondaryUsers" className="" onChange={this.handleChange}></textarea>
+          <button className="budget-button form-button">Create Account</button>
         </form>
-      </div>
+      </>
     )
   }
 }

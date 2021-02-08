@@ -5,6 +5,8 @@ import { faCheck, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from "react-router-dom"
 import Table from 'react-bootstrap/Table'
+import '../../../src/App.css';
+
 var dayjs = require('dayjs')
 const CatTransactions = ({cat,id, getTransactionByCategory, categoryTransactions }) => {
     useEffect(() => {
