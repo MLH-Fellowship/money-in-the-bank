@@ -11,8 +11,6 @@ class AddTransaction extends Component {
   budgetCats = this.props.budgetCats
   accounts = this.props.accounts
 
-
-
   state = {
     account: '',
     accountID: '',
@@ -108,11 +106,27 @@ class AddTransaction extends Component {
       primaryUser: this.props.auth.uid
     })
   }
+  handleClear = (e) => {
+    console.log('Clear')
+    this.setState({
+      account: '',
+      accountID: '',
+      month:'',
+      category: '',
+      clear : false,
+      date: '',
+      header: '',
+      inflow: '',
+      memo: '',
+      outflow: '',
+      payee: '',
+      header: '',
+      primaryUser: this.props.auth.uid
+    })
+  }
 
   render(){
-    const {accounts, accountName} = this.props
-    console.log(this.props)
-    console.log(accounts)
+    const {accounts} = this.props
     const accountDropdown = accounts && accounts.length > 0 ?
       accounts.map((account) =>
         <option value={account.id}>{account.name}</option>
@@ -144,51 +158,54 @@ class AddTransaction extends Component {
           style={{margin:'0px 10px'}} onClick={this.handleShowNewTransaction}
           />
         </span>
-        <tr className={this.state.showNewTransaction ? '':'hidden'}>
-          <td colSpan ='7'>
-            <select  id={'account'} value={this.state.account} onChange={this.handleAccount} placeholder="Select Account">
-            <option disabled={true} value="">Account</option>
-              {accountDropdown}
-            </select>
-          </td>
-          <td colSpan ='7'>
-            <select  id={'category'} value={this.state.category} onChange={this.handleCategory} placeholder="Select Category">
-              <option disabled={true} value="">Category</option>
-              {catsDropdown}
-            </select>
-          </td>
-          <td colSpan ='7'>
-            <label>
-              Cleared
-            </label>
-            <input
-                id={'clear'}
-                name="clear"
-                type="checkbox"
-                checked={this.state.clear}
-                onChange={this.handleChange} />
-          </td>
-          <td colSpan ='7'>
-            <DatePicker dateFormat="MM-dd-yyyy" name="date" value={this.state.date} selected={this.state.date} onChange={this.handleDate}/>
-          </td>
-          <td colSpan ='7'>
-            <input type="text" id={"payee"} value={this.state.payee} onChange={this.handleChange} placeholder="Payee"/>
-          </td>
-          <td colSpan ='7'>
-            <input type="text" id={"inflow"} value={this.state.inflow} onChange={this.handleChange} placeholder="Inflow"/>
-          </td>
-          <td colSpan ='7'>
-            <input type="text" id={"outflow"} value={this.state.outflow} onChange={this.handleChange} placeholder="Outflow"/>
-          </td>
-          <td colSpan ='7'>
-            <input type="text" id={"memo"} onChange={this.handleChange} value={this.state.memo} placeholder="Memo"/>
-          </td>
-        </tr>
-        <tr className={this.state.showNewTransaction ? '':'hidden'}>
-        <div className="input-field">
-          <button className="" onClick={this.createNewTransaction}>Submit</button>
-        </div>
-        </tr>
+        <table>
+          <tr className={this.state.showNewTransaction ? '':'hidden'}>
+            <td colSpan ='7'>
+              <select  defaultValue={this.state.account} id={'account'} onChange={this.handleAccount} placeholder="Select Account">
+              <option disabled={true} >Account</option>
+                {accountDropdown}
+              </select>
+            </td>
+            <td colSpan ='7'>
+              <select  defaultValue={this.state.category} id={'category'} onChange={this.handleCategory} placeholder="Select Category">
+                <option disabled={true} >Category</option>
+                {catsDropdown}
+              </select>
+            </td>
+            <td colSpan ='7'>
+              <label>
+                Cleared
+              </label>
+              <input
+                  id={'clear'}
+                  name="clear"
+                  type="checkbox"
+                  checked={this.state.clear}
+                  onChange={this.handleChange} />
+            </td>
+            <td colSpan ='7'>
+              <DatePicker dateFormat="MM-dd-yyyy" name="date" value={this.state.date} selected={this.state.date} onChange={this.handleDate}/>
+            </td>
+            <td colSpan ='7'>
+              <input type="text" id={"payee"} value={this.state.payee} onChange={this.handleChange} placeholder="Payee"/>
+            </td>
+            <td colSpan ='7'>
+              <input type="text" id={"inflow"} value={this.state.inflow} onChange={this.handleChange} placeholder="Inflow"/>
+            </td>
+            <td colSpan ='7'>
+              <input type="text" id={"outflow"} value={this.state.outflow} onChange={this.handleChange} placeholder="Outflow"/>
+            </td>
+            <td colSpan ='7'>
+              <input type="text" id={"memo"} onChange={this.handleChange} value={this.state.memo} placeholder="Memo"/>
+            </td>
+          </tr>
+          <tr className={this.state.showNewTransaction ? '':'hidden'}>
+          <div className="input-field">
+            <button className="" onClick={this.createNewTransaction}>Submit</button>
+            <button className="" onClick={this.handleClear}>Clear</button>
+          </div>
+          </tr>
+        </table>
       </div>
     )
   }

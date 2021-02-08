@@ -36,7 +36,7 @@ const TransactionsSummary = (transactions, accountName) => {
   return(
     <div className="border padding">
       <div className="addTransaction">
-        <AddTransaction accountName={accountName}/>
+        <AddTransaction/>
       </div>
       <div className="makeTransfer grid-container2">
         <Link

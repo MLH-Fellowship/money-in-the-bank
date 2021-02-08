@@ -19,7 +19,7 @@ class MainUserSpecific extends Component {
       <div className="App paddingTop">
         <h2>{accountName}</h2>
         <TransactionsTable transactions={filteredTransactions} view='specific' accountName={accountName}/>
-        <TransactionsSummary transactions={filteredTransactions} accountName={accountName} accountName={accountName}/>
+        <TransactionsSummary transactions={filteredTransactions} accountName={accountName}/>
       </div>
     );
   }

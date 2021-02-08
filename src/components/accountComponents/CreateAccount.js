@@ -20,8 +20,7 @@ class CreateAccount extends Component {
   }
 
   render() {
-    const auth = this.props && this.props.auth.uid;
-    console.log(this.state)
+
     return (
       <div className="container">
         <form className="" onSubmit={this.handleSubmit}>

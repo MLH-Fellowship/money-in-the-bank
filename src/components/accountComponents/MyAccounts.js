@@ -61,9 +61,9 @@ function MyAccounts({accounts, transactions}) {
           to={{
             pathname: "/createaccount",
           }}>
-          <button >
+          <span >
             <FontAwesomeIcon icon={faPlusCircle} /> Add Account
-          </button>
+          </span>
         </Link>
       </div>
     </div>

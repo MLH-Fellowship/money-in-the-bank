@@ -93,9 +93,8 @@ export const createTransaction = (transaction) => {
 export const createAccount = (account) => {
     return (dispatch, getState, { getFirestore }) => {
         const state = getState();
-        const user = state.firebase.auth.uid
-
         const firestore = getFirestore();
+
         firestore.collection('accounts').add({
           ...account,
           cleared_balance: 0,
