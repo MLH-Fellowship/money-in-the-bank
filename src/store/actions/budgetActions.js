@@ -4,7 +4,7 @@ export const createTransaction = (transaction) => {
     // month format JAN2021, FEB2021, MAR2021
     return (dispatch, getState, { getFirebase, getFirestore }) => {
         const state = getState();
-        const user = state.firebase.auth.uid
+        const user = 'qLbmoEQc8daBsJ8nasIeVM5uosF2'
         const categoryTemplate = state.user.categoryTemplate
         const firestore = getFirestore();
 
@@ -77,7 +77,7 @@ export const createTransaction = (transaction) => {
 
         firestore.collection('transactions').add({
           ...transaction,
-          primaryUser: user,
+          primaryUser: 'qLbmoEQc8daBsJ8nasIeVM5uosF2',
           createdAt: new Date()
 
         }).then(() => {
@@ -114,6 +114,7 @@ export const getBudget = (month) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
         const state = getState();
         const user = state.firebase.auth.uid
+        // const categoryTemplate = state.user.categoryTemplate
         const categoryTemplate = state.user.categoryTemplate
         
         const firestore = getFirestore();
@@ -125,7 +126,8 @@ export const getBudget = (month) => {
                 dispatch({type: 'GET_BUDGET', budget});
             } else {
                 // make a new budget if none exists
-                budgetTemp.categories = categoryTemplate ? categoryTemplate : initialCategories
+                // budgetTemp.categories = categoryTemplate ? categoryTemplate : initialCategories
+                budgetTemp.month = month
                 firestore.collection('budgets').doc(`${user}-${month}`).set(budgetTemp)
                 .then(function(docRef) {
                     // budgetTemp.categories = initialCategories
