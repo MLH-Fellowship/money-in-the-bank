@@ -217,14 +217,15 @@ button:hover {
   padding: .35rem .25rem !important;
   /* overflow:hidden; */
 }
-/* .table td:first-child {
+nav .table td:first-child {
   width: 80%;
   white-space: nowrap;
-} */
-/* .table td:last-child {
+}
+nav td.balance {
   width: 6em;
   text-align: right;
-} */
+  padding-right: .125em;
+}
 
 td.balance span {
   color: var(--leaf-green)
