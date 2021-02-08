@@ -10,8 +10,9 @@
   --steel-blue: #4F6A88;
   --dark-blue: #163A74;
   --sage-green: #9ec7a5; 
-  --dark-green: #015309;
+  --dark-green: #036346;
   --red: #d9014c; 
+  --maroonish: #6D0118;
   --dark-purple: #27132e; 
 }
 body{
@@ -80,7 +81,7 @@ body{
     left:25px;
     text-align: left;
 }
-.item1,.item2 {
+.item1,.item2,.page-header {
   border: 1px solid var(--beigish);
   border-radius: 3px;
   background-color: var(--super-light-grey);
@@ -97,7 +98,8 @@ body{
 h1.app-name {
   text-align: center;
   font-weight: bold;
-  color: var(--dark-purple)
+  color: var(--dark-purple);
+  padding: 1rem 0;
 }
 .section-title {
   color: var(--dark-purple);
@@ -154,15 +156,38 @@ ul.view-links li {
 ul.view-links span {
   color: var(--dark-blue)
 }
-button.budget-button {
+button {
   border-radius: 3px;
   padding: .25rem 5%;
   background-color: var(--light-blue);
-  border: 1px solid var(--beigish)
+  border: 1px solid var(--beigish);
+  width: 100%;
+  max-width: 100%;
 }
-button.budget-button:hover {
+button:hover {
   background-color: var(--steel-blue);
   color: var(--super-light-grey);
+}
+.account-creation-form {
+  margin: 0 auto;
+  padding: 0 2%;
+  width: 50%;
+  min-width: 12rem;
+}
+.account-creation-form input[type="text"], .account-creation-form textarea {
+  width: 100%;
+  margin-bottom: 1.25rem;
+}
+.account-creation-form label {
+  display: block;
+  font-weight: bold;
+  color: var(--steel-blue);
+  margin-bottom: .125rem;
+}
+.account-creation-form .form-button {
+  max-width: 10rem;
+  display: block;
+  margin:1rem auto;
 }
 .utility-links {
   list-style-type: none;
@@ -176,6 +201,9 @@ button.budget-button:hover {
 .transactionItems , .transaction div{
   border-top: black solid .5px;
 }
+.total {
+  padding: .125rem 2%;
+}
 .border{
   border: black solid .5px !important;
 }
@@ -188,7 +216,6 @@ button.budget-button:hover {
 .table td, .table th {
   padding: .35rem .25rem !important;
   overflow:hidden;
-
 }
 td.balance span {
   text-align: right;
@@ -222,7 +249,7 @@ td.balance span {
 }
 .budget-header-available{
     text-align: center;
-    background-color: #036346;
+    background-color: var(--dark-green);
     color:#F2F2F7;
     border-radius: 5px;
     font-size:20px;

@@ -17,7 +17,7 @@ function App({auth}) {
   return (
     <BrowserRouter>
       <div className="App grid-container">
-        <header className="page-header paddingTop">
+        <header className="page-header">
           <h1 className="app-name">The Budget App</h1>
         </header>
 
