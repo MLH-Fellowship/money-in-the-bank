@@ -10,7 +10,7 @@ import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 
 function MyAccounts({accounts, transactions}) {
   const accountItems = accounts && accounts.length > 0 ?accounts.map((account) =>
-  <tr className="d-flex">
+  <tr>
     <Link
         to={{
           pathname: `/mainuserspecific`,

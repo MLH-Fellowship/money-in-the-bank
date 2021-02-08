@@ -11,7 +11,7 @@
   --dark-blue: #163A74;
   --sage-green: #9ec7a5; 
   --dark-green: #036346;
-  --red: #d9014c; 
+  --maraschino: #d9014c; 
   --maroonish: #6D0118;
   --dark-purple: #27132e; 
 }
@@ -114,9 +114,8 @@ h1.app-name {
     'nav main main main main main'
     'nav main main main main main'
     'nav main main main main main';
-  grid-gap: 1rem;
   padding: 10px;
-  grid-gap: 1rem;
+  grid-gap: .75rem;
 }
 .grid-container > div{
   margin-top: 40px 0;
@@ -195,9 +194,6 @@ button:hover {
   font-weight: bold;
   border-bottom: 1px solid var(--light-grey);
 }
-.negative-balance{
-  color: var(--red);
-}
 .transactionItems , .transaction div{
   border-top: black solid .5px;
 }
@@ -217,9 +213,20 @@ button:hover {
   padding: .35rem .25rem !important;
   overflow:hidden;
 }
-td.balance span {
+.table td:first-child {
+  width: 80%;
+  white-space: nowrap;
+}
+.table td:last-child {
+  width: 6em;
   text-align: right;
-  display: inline-block;
+}
+
+td.balance span {
+  color: var(--leaf-green)
+}
+td.balance .negative-balance{
+  color: var(--maraschino);
 }
 
 .paddingTop{
