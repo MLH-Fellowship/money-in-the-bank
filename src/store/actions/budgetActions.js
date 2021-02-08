@@ -130,7 +130,7 @@ export const getBudget = (month) => {
                 firestore.collection('budgets').doc(`${user}-${month}`).set(budgetTemp)
                 .then(function(docRef) {
                     // budgetTemp.categories = initialCategories
-                    console.log("Document written with ID: ", docRef.id);
+                    // console.log("Document written with ID: ", docRef.id);
                     dispatch({type: 'CREATE_BUDGET', budget: budgetTemp});
                 })
                 .catch(function(error) {
@@ -144,16 +144,18 @@ export const getBudget = (month) => {
     }
 }
 
-export const getTransactionByCategory = (category) => {
+export const getTransactionByCategory = (category,id) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
         const state = getState();
         const user = state.firebase.auth.uid
-      console.log('?????', category)
+    //   console.log('?????', category)
         let  transactions = []
         const firestore = getFirestore();
         firestore.collection('transactions')
         .where("primaryUser", "==", user)
-        .where("category", "==", category).get()
+        .where("category", "==", category)
+        .where("month", "==", id)
+        .get()
         .then(querySnapshot => {
             transactions = querySnapshot.docs.map(doc => doc.data());
             console.log(transactions);
