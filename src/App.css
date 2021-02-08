@@ -8,6 +8,7 @@
   --light-blue: #b7d1e0;
   --tealish: #06bbc4; 
   --steel-blue: #4F6A88;
+  --dark-blue: #163A74;
   --sage-green: #9ec7a5; 
   --dark-green: #015309;
   --red: #d9014c; 
@@ -86,7 +87,7 @@ body{
 }
 .item1{
   grid-area: nav;
-  padding: 1rem 1.5%;
+  padding: 1rem 1.25%;
 }
 .item2{ grid-area: main; }
 .page-header {
@@ -97,6 +98,12 @@ h1.app-name {
   text-align: center;
   font-weight: bold;
   color: var(--dark-purple)
+}
+.section-title {
+  color: var(--dark-purple);
+  font-weight: bold;
+  padding-left: 2.5%;
+  background-color: var(--sage-green);
 }
 .grid-container{
   display: grid;
@@ -125,6 +132,10 @@ h1.app-name {
 .black{
   color: black;
 }
+nav ul {
+  margin: 0;
+  padding: 0;
+}
 .unmarkedList ul{
   list-style: none;
   padding-inline-start: 10px !important;
@@ -133,8 +144,15 @@ h1.app-name {
   padding: .5rem 0;
   background-color: var(--light-blue);
 }
+.home-link {
+  font-weight: bold;
+  padding-bottom: 2em;
+}
+ul.view-links li {
+  line-height: 2;
+}
 ul.view-links span {
-  color: var(--steel-blue)
+  color: var(--dark-blue)
 }
 button.budget-button {
   border-radius: 3px;
@@ -152,9 +170,6 @@ button.budget-button:hover {
   font-weight: bold;
   border-bottom: 1px solid var(--light-grey);
 }
-.balance {
-  text-align: right;
-}
 .negative-balance{
   color: var(--red);
 }
@@ -167,10 +182,19 @@ button.budget-button:hover {
 .padding{
   padding: 40px;
 }
-.table td, .table th {
-  padding: .25rem !important;
-  overflow:hidden;
+.table th {
+  color: var(--dark-purple)
 }
+.table td, .table th {
+  padding: .35rem .25rem !important;
+  overflow:hidden;
+
+}
+td.balance span {
+  text-align: right;
+  display: inline-block;
+}
+
 .paddingTop{
   padding-top: 40px;
 }

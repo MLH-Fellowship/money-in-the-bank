@@ -12,8 +12,8 @@ class MainUserSpecific extends Component {
     let { transactions} = this.props;
 
     return (
-      <div className="App paddingTop">
-        <h2>All Accounts</h2>
+      <div className="App">
+        <h2 className="section-title paddingTop">All Accounts</h2>
         <TransactionsTable transactions={transactions} view='all'/>
         <TransactionsSummary transactions={transactions}/>
       </div>

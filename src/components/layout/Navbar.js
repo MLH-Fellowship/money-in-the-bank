@@ -10,7 +10,7 @@ const Navbar = ({auth}) => {
     const links = uid ? <SignedInLinks/> : <SignedOutLinks/>
     return (
         <nav>
-            <NavLink to="/">Home</NavLink>
+            <NavLink to="/"><span className="home-link">Home</span></NavLink>
             {links}
         </nav>
     )
