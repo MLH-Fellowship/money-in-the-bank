@@ -17,7 +17,7 @@ const CatTransactions = ({cat,id, getTransactionByCategory, categoryTransactions
     categoryTransactions.map((transaction) =>
         <tr className="paddingVertical transactionItems" key={transaction.id}>
             <td width="175">{transaction.account}</td>
-            <td width="175">{transaction.date}</td>
+            <td width="175">{dayjs(transaction.date).format('MMM DD YYYY')}</td>
             <td width="175">{transaction.payee}</td>
             <td width="175">{transaction.category}</td>
             <td width="175">{transaction.memo}</td>
@@ -29,7 +29,9 @@ const CatTransactions = ({cat,id, getTransactionByCategory, categoryTransactions
         </tr>
     )
     :
-    <tr></tr>
+    <tr>
+        No results found
+    </tr>
 
     return(
         <Fragment>
