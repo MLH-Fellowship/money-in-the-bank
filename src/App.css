@@ -14,7 +14,9 @@
   --maraschino: #d9014c; 
   --maroonish: #6D0118;
   --dark-purple: #27132e; 
+  height:100%;
 }
+
 body{
   margin:0;
   padding:0;
