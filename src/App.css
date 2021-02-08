@@ -14,10 +14,10 @@
   --dark-purple: #27132e; 
 }
 body{
-    margin:0;
-    padding:0;
-    font-family: 'Commissioner', sans-serif;
-    background-color: var(--super-light-grey);
+  margin:0;
+  padding:0;
+  font-family: 'Commissioner', sans-serif;
+  background: linear-gradient(var(--light-blue), var(--light-green), var(--super-light-grey));
 }
 .navlink{
     float:right;
@@ -82,6 +82,7 @@ body{
 .item1,.item2 {
   border: 1px solid var(--beigish);
   border-radius: 3px;
+  background-color: var(--super-light-grey);
 }
 .item1{
   grid-area: nav;
@@ -92,7 +93,7 @@ body{
   grid-area: header;
   background-color: var(--light-grey);
 }
-.page-header.paddingTop h1 {
+h1.app-name {
   text-align: center;
   font-weight: bold;
   color: var(--dark-purple)
@@ -130,8 +131,20 @@ body{
 }
 .unmarkedList ul.view-links {
   padding: .5rem 0;
+  background-color: var(--light-blue);
+}
+ul.view-links span {
+  color: var(--steel-blue)
+}
+button.budget-button {
+  border-radius: 3px;
+  padding: .25rem 5%;
+  background-color: var(--light-blue);
+  border: 1px solid var(--beigish)
+}
+button.budget-button:hover {
   background-color: var(--steel-blue);
-  color: var(--super-light-grey)
+  color: var(--super-light-grey);
 }
 .utility-links {
   list-style-type: none;

@@ -43,7 +43,7 @@ const TransactionsSummary = (transactions, accountName) => {
           to={{
             pathname: "/",
           }}>
-          <button >
+          <button className="budget-button">
             <FontAwesomeIcon icon={faPlusCircle} /> Make a transfer
           </button>
         </Link>
