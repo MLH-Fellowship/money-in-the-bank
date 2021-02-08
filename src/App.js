@@ -6,7 +6,6 @@ import SignIn from './components/SignIn'
 import SignUp from './components/SignUp'
 import MainUserSpecific from './components/userViews/MainUserSpecific'
 import MainUserAll from './components/userViews/MainUserAll'
-import CreateTransaction from './components/accountComponents/CreateTransaction'
 import CreateAccount from './components/accountComponents/CreateAccount'
 import BudgetView from './components/budget/BudgetView'
 import CatTransactions from './components/budget/CatTransactions'
@@ -37,9 +36,6 @@ function App({auth}) {
               {!uid && <Redirect to={"/login"}/>}
             </Route>
             <Route path='/mainuserall' component={MainUserAll}>
-              {!uid && <Redirect to={"/login"}/>}
-            </Route>
-            <Route path='/createtransaction' component={CreateTransaction}>
               {!uid && <Redirect to={"/login"}/>}
             </Route>
             <Route path='/createaccount' component={CreateAccount}>

@@ -3,9 +3,7 @@ import Table from 'react-bootstrap/Table'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../src/App.css';
-import { compose } from 'redux'
-import {connect} from 'react-redux'
-import { firestoreConnect } from 'react-redux-firebase'
+var dayjs = require('dayjs')
 
 class TransactionsTable extends Component {
   render(){
@@ -16,7 +14,11 @@ class TransactionsTable extends Component {
         {view === 'all' &&
           <td width="175">{transaction.account}</td>
         }
-        <td width="175">{transaction.date}</td>
+        {typeof transaction.date === 'object' ?
+          <td width="175">{dayjs.unix(transaction.date.seconds).format('MMM DD YYYY')}</td> 
+          :
+          <td width="175">{dayjs(transaction.date).format('MMM DD YYYY')}</td>
+        }
         <td width="175">{transaction.payee}</td>
         <td width="175">{transaction.category}</td>
         <td width="175">{transaction.memo}</td>
@@ -56,15 +58,4 @@ class TransactionsTable extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  // console.log('state', state)
-  return {
-    // transactions: state.firestore.ordered.transactions,
-  }
-}
-export default compose(
-  connect(mapStateToProps),
-  firestoreConnect([
-    { collection: 'transactions' }
-  ])
-)(TransactionsTable)
+export default TransactionsTable

@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMinusCircle, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import '../../../src/App.css';
 import { Link } from "react-router-dom";
+import AddTransaction from './AddTransaction'
 
-const TransactionsSummary = (transactions) => {
+const TransactionsSummary = (transactions, accountName) => {
+// TODO - will remove when transaction update account/budget totals
   transactions = transactions.transactions
   let cleared_balance = 0
   let uncleared_balance = 0
-  // console.log('transactions', transactions)
-  
   if(transactions){
     for(let i = 0; i < transactions.length; i++){
       if(transactions[i].clear){
@@ -29,24 +29,16 @@ const TransactionsSummary = (transactions) => {
       }
     }
   }
-  
-  // console.log('cleared', cleared_balance)
-  // console.log('uncleared', uncleared_balance)
-  let totalBal = cleared_balance + uncleared_balance
 
+  let totalBal = cleared_balance + uncleared_balance
+  console.log(accountName)
+  console.log(transactions)
   return(
-    <div className="grid-container2 border padding">
+    <div className="border padding">
       <div className="addTransaction">
-        <Link
-          to={{
-            pathname: "/createtransaction",
-          }}>
-          <button >
-            <FontAwesomeIcon icon={faPlusCircle} /> Add a New Transaction
-          </button>
-        </Link>
+        <AddTransaction accountName={accountName}/>
       </div>
-      <div className="makeTransfer">
+      <div className="makeTransfer grid-container2">
         <Link
           to={{
             pathname: "/",
@@ -55,9 +47,9 @@ const TransactionsSummary = (transactions) => {
             <FontAwesomeIcon icon={faPlusCircle} /> Make a transfer
           </button>
         </Link>
-      </div>
-      <div className="total">
+        <div className="total">
         Cleared: ${cleared_balance} + Uncleared: ${uncleared_balance}= ${totalBal}
+        </div>
       </div>
     </div>
   )

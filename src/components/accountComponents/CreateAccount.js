@@ -5,9 +5,8 @@ import { createAccount } from '../../store/actions/budgetActions'
 class CreateAccount extends Component {
   state = {
     name: '',
-    primaryUser: '',
+    primaryUser: this.props && this.props.auth.uid,
     secondaryUsers: '',
-    working_balance: ''
   }
   handleChange = (e) => {
     this.setState({
@@ -21,10 +20,8 @@ class CreateAccount extends Component {
   }
 
   render() {
-    // console.log('state', this.state)
-    // console.log('props', this.props)
-    // const { auth } = this.props;
-    // if (!auth.uid) return <Redirect to='/signin' />
+    const auth = this.props && this.props.auth.uid;
+    console.log(this.state)
     return (
       <div className="container">
         <form className="" onSubmit={this.handleSubmit}>

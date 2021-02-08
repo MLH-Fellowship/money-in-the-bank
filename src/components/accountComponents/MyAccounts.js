@@ -71,7 +71,6 @@ function MyAccounts({accounts, transactions}) {
 }
 
 const mapStateToProps = (state) => {
-  // console.log('state', state)
   return {
     accounts: state.firestore.ordered.accounts,
     transactions: state.firestore.ordered.transactions,
