@@ -11,7 +11,7 @@
   --sage-green: #9ec7a5; 
   --dark-green: #015309;
   --red: #d9014c; 
-  --dark: #27132e; 
+  --dark-purple: #27132e; 
 }
 body{
     margin:0;
@@ -95,7 +95,7 @@ body{
 .page-header.paddingTop h1 {
   text-align: center;
   font-weight: bold;
-  color: var(--dark)
+  color: var(--dark-purple)
 }
 .grid-container{
   display: grid;
