@@ -1,0 +1,57 @@
+collection accounts:
+    {
+        cleared_balance: number,
+        name: string,    
+        primaryUser: string (user uid),
+        secondaryUsers: string (user uid,)
+        uncleared_balance: number,
+        working_balance: number
+    }
+    
+collection budgets:
+    {
+        available: number,
+        budgeted: number,
+        goal: number,
+        month: string,
+        unbudgeted: number,
+        categories: object
+    }   
+    field: categories:
+        {
+            Basic:array,
+            Secondary:array,
+            Fun: array,
+            Other:array,
+            Savings:array (of category objects)
+        }
+        category object:
+            {
+                activity: number,
+                available: number,
+                budgeted: number,
+                name: string
+            }
+
+collection transactions:
+    {
+        account: String,
+        accountID: String,
+        category: String,
+        clear: Boolean,
+        createdAt: Date,
+        header: String,
+        inflow: Number,
+        memo: String,
+        month: String,
+        outflow: Number,
+        payee: String,
+        primaryUser: String,
+        showNewTransaction: Boolean
+    }
+
+collection users:
+    {
+        name: String,
+        email: String
+    }

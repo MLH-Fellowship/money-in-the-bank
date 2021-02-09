@@ -1,0 +1,32 @@
+App.js
+|
+| -- BudgetView
+|        |
+|        | -- BudgetViewHeader
+|        |      |
+|        |      MonthPicker
+|        |
+|        | -- BudgetTableBody
+|               |
+|               BudgetCategoryHeader
+|               BudgetCategory 
+|
+| -- CatTransactions
+|
+| -- MainUserSpecific
+|        |
+|        | -- TransactionsTable
+|        |
+|        | -- TransactionsSummary
+|                |
+|                AddTransaction
+|
+| -- MainUserAll
+|        |
+|        | -- TransactionsTable
+|        |
+|        | -- TransactionsSummary
+|                |
+|               AddTransaction
+| -- Signup
+| -- Login
