@@ -27,7 +27,7 @@ class AddTransaction extends Component {
     payee: '',
     showNewTransaction: false,
     header: '',
-    primaryUser: 'qLbmoEQc8daBsJ8nasIeVM5uosF2'
+    primaryUser: this.props.auth.uid
   }
 
   handleChange = (e) => {
@@ -105,7 +105,7 @@ class AddTransaction extends Component {
       payee: '',
       showNewTransaction: false,
       header: '',
-      primaryUser: 'qLbmoEQc8daBsJ8nasIeVM5uosF2'
+      primaryUser: this.props.auth.uid
     })
   }
 
