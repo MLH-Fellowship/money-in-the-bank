@@ -1,4 +1,4 @@
-import React, {useEffect, Fragment} from 'react'
+import React, {useEffect, Fragment, useState} from 'react'
 import { connect } from 'react-redux'
 import {getBudget, createBudget} from '../../store/actions/budgetActions'
 import Table from 'react-bootstrap/Table'
@@ -10,8 +10,8 @@ import '../../../src/App.css';
 var dayjs = require('dayjs')
 
 const BudgetView = ({getBudget, budget, categories, categoryHeaders}) => {
+    const [overBudget, setOverBudget] = useState(0)
     useEffect(() => {
-        console.log('got')
         getBudget(dayjs().format('MMMYYYY'));
     },[]);
     // is this a problem on a new month?
@@ -24,7 +24,7 @@ const BudgetView = ({getBudget, budget, categories, categoryHeaders}) => {
 
     return (
         <Fragment>
-            <BudgetViewHeader budget={budget}/>
+            <BudgetViewHeader budget={budget} overBudget={overBudget} setOverBudget={setOverBudget}/>
             <main>
                 <Table>
                     <thead>
@@ -36,7 +36,7 @@ const BudgetView = ({getBudget, budget, categories, categoryHeaders}) => {
                         </tr>
                     </thead>
                     {categoryHeaders && categoryHeaders.length > 0 && (
-                        <BudgetTableBody categories={categories} categoryHeaders={categoryHeaders} month={month}/>
+                        <BudgetTableBody categories={categories} categoryHeaders={categoryHeaders} month={month} overBudget={overBudget} setOverBudget={setOverBudget}/>
                     )}
                 </Table>
             </main>

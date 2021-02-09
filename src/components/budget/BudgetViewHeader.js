@@ -6,7 +6,7 @@ import { withRouter } from 'react-router'
 
 var dayjs = require('dayjs')
 
-const BudgetViewHeader = ({id, history, budget, updateSpendingGoal,getBudget, available, budgeted, goal, getTransactionByCategory }) => {
+const BudgetViewHeader = ({id, history, budget, updateSpendingGoal,getBudget, available, budgeted, goal, getTransactionByCategory, overBudget }) => {
     const {funds,  balance, unbudgeted, month}=budget
     const [spendingGoal, setSpendingGoal] = useState(0)
     const [spendingAvailable, setSpendingAvailable] = useState(0)

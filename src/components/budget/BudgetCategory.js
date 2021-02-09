@@ -5,11 +5,11 @@ import { updateCategory, updateCategoryName, deleteCategory } from '../../store/
 import {connect} from 'react-redux'
 import { Link } from "react-router-dom"
 
-const BudgetCategory = ({ idx, header, c, month, updateCategory, updateCategoryName, deleteCategory, budget, goal}) => {
+const BudgetCategory = ({ idx, header, c, month, updateCategory, updateCategoryName, deleteCategory, budget, goal, overBudget, setOverBudget}) => {
     const [focus, setFocus] = useState(false);
     const [catName, setCatName] = useState(c.name);
     const [catNameBak, setCatNameBak] = useState(c.name);
-    const [budgeted, setBudgeted] = useState(parseInt(c.budgeted));
+    const [budgeted, setBudgeted] = useState(parseFloat(c.budgeted));
     const [catAvailable, setCatAvailable] = useState(c.available);
     const [deleted, setDeleted] = useState(false)
 
@@ -20,7 +20,12 @@ const BudgetCategory = ({ idx, header, c, month, updateCategory, updateCategoryN
             if(e.target.value === ""){
                 setBudgeted(0);
             }else{
-                setBudgeted(parseInt(e.target.value));
+                if(e.target.value.match(/^0[^.]/)){
+                    setBudgeted(e.target.value.substring(1));
+                }else if(e.target.value.match(/^[0-9]*\.?[0-9]{0,2}$/)){
+                    console.log(e.target.value)
+                    setBudgeted(e.target.value);
+                }
             }
         }
     }
@@ -52,10 +57,10 @@ const BudgetCategory = ({ idx, header, c, month, updateCategory, updateCategoryN
 
     const onBudgetedBlur = (e) => {
         if(budgeted !== c.budgeted){
-            const available = c.available + budgeted - c.budgeted + c.activity
+            const available = eval(c.available + budgeted - c.budgeted + c.activity)
             setCatAvailable(available);
             setBudgeted(budgeted)
-            // month, header,idx,available, newBudgeted, oldBudgeted, activity, name, budget, goal
+            
             updateCategory(month, header,idx,available, budgeted,c.budgeted, c.activity, c.name, budget, goal)
         }
     }

@@ -35,23 +35,23 @@ collection budgets:
 
 collection transactions:
     {
-        account: String,
-        accountID: String,
-        category: String,
-        clear: Boolean,
-        createdAt: Date,
-        header: String,
-        inflow: Number,
-        memo: String,
-        month: String,
-        outflow: Number,
-        payee: String,
-        primaryUser: String,
-        showNewTransaction: Boolean
+        account: string,
+        accountID: string,
+        category: string,
+        clear: boolean,
+        createdAt: date,
+        header: string,
+        inflow: string,
+        memo: string,
+        month: string,
+        outflow: string,
+        payee: string,
+        primaryUser: string,
+        showNewTransaction: boolean
     }
 
 collection users:
     {
-        name: String,
-        email: String
+        name: string,
+        email: string
     }

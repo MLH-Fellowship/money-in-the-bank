@@ -4,7 +4,7 @@ export const createTransaction = (transaction) => {
     // month format JAN2021, FEB2021, MAR2021
     return (dispatch, getState, { getFirebase, getFirestore }) => {
         const state = getState();
-        const user = 'qLbmoEQc8daBsJ8nasIeVM5uosF2'
+        const user = state.firebase.auth.uid
         const categoryTemplate = state.user.categoryTemplate
         const firestore = getFirestore();
 
@@ -22,7 +22,7 @@ export const createTransaction = (transaction) => {
 
                 if(!transaction.category || transaction.category === ""){
                     console.log("---cat was blank")
-                    updatedBudgetFields.unbudgeted = budget.unbudgeted + transaction.outflow;
+                    updatedBudgetFields.unbudgeted = (parseFloat(budget.unbudgeted) + parseFloat(transaction.outflow)).toString();
                 }else{
                     console.log("---cat was", transaction.category)
                     catIdx = cats[transaction.header].findIndex((c) => c.name === transaction.category);
@@ -30,7 +30,7 @@ export const createTransaction = (transaction) => {
                     const updatedCategory = {
                         available:cats[transaction.header][catIdx].available - transaction.outflow,
                         budgeted: cats[transaction.header][catIdx].budgeted,
-                        activity: parseInt(cats[transaction.header][catIdx].activity) + parseInt(transaction.outflow),
+                        activity: (parseFloat(cats[transaction.header][catIdx].activity) + parseFloat(transaction.outflow)).toString(),
                         name: cats[transaction.header][catIdx].name
                     }
                     cats[transaction.header][catIdx]=updatedCategory;
@@ -77,7 +77,7 @@ export const createTransaction = (transaction) => {
 
         firestore.collection('transactions').add({
           ...transaction,
-          primaryUser: 'qLbmoEQc8daBsJ8nasIeVM5uosF2',
+          primaryUser: user,
           createdAt: new Date()
 
         }).then(() => {
@@ -114,7 +114,6 @@ export const getBudget = (month) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
         const state = getState();
         const user = state.firebase.auth.uid
-        // const categoryTemplate = state.user.categoryTemplate
         const categoryTemplate = state.user.categoryTemplate
         
         const firestore = getFirestore();
@@ -126,7 +125,6 @@ export const getBudget = (month) => {
                 dispatch({type: 'GET_BUDGET', budget});
             } else {
                 // make a new budget if none exists
-                // budgetTemp.categories = categoryTemplate ? categoryTemplate : initialCategories
                 budgetTemp.month = month
                 firestore.collection('budgets').doc(`${user}-${month}`).set(budgetTemp)
                 .then(function(docRef) {
@@ -149,7 +147,6 @@ export const getTransactionByCategory = (category,id) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
         const state = getState();
         const user = state.firebase.auth.uid
-    //   console.log('?????', category)
         let  transactions = []
         const firestore = getFirestore();
         firestore.collection('transactions')
@@ -226,7 +223,6 @@ export const updateCategory = (month, header,idx,available, newBudgeted, oldBudg
         const state = getState();
         const user = state.firebase.auth.uid
 
-         // update fields on the category
         const updatedCategory = {
             available:newBudgeted-activity,
             budgeted: newBudgeted,
@@ -238,19 +234,10 @@ export const updateCategory = (month, header,idx,available, newBudgeted, oldBudg
         const catIdx = cats[header].findIndex((c) => c.name === name);
         cats[header][catIdx]=updatedCategory;
 
-        // updatefields on the budget
         let updatedBudgetFields={categories: cats};
-
-        // if(newBudgeted !== oldBudgeted){
-            console.log('math',budget.budgeted,oldBudgeted,newBudgeted)
-            const newBB = budget.budgeted - oldBudgeted + newBudgeted;
-            console.log('math:', newBB)
-            
-            updatedBudgetFields.budgeted = newBB;
-            updatedBudgetFields.available = budget.goal - newBB;
-            console.log('und?', budget.goal)
-            // console.log('nan?', newBB, typeof(newBB), goal, typeof(goal))
-        // }
+        const newBB = (parseFloat(budget.budgeted) - parseFloat(oldBudgeted) + parseFloat(newBudgeted)).toString();
+        updatedBudgetFields.budgeted = newBB;
+        updatedBudgetFields.available = budget.goal - newBB;
 
         firestore.collection('budgets').doc(`${user}-${month}`).update(updatedBudgetFields)
         .then(function(ref) {
